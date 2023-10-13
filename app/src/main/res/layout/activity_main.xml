@@ -9,21 +9,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Poke-Organizer"
+        android:text="@string/poke_organizer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.885"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="104dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="77dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="Imagen Pokemon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
