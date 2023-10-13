@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Poke-Organizer</string>
+    <string name="poke_organizer">Poke-Organizer</string>
+    <string name="tarea2">Tarea2</string>
+    <string name="tarea1">Tarea1</string>
+    <string name="tarea3">Tarea3</string>
+    <string name="tarea4">Tarea4</string>
+    <string name="tarea5">Tarea5</string>
 </resources>
