@@ -44,7 +44,10 @@ public class GetPokemonInfo {
                                 pokenameTextView.setText(name);
 
                                 // Utiliza Picasso (o la biblioteca de tu elección) para cargar y mostrar el sprite
-                                Picasso.get().load(spriteUrl).into(spriteImageView);
+                                Picasso.get().load(spriteUrl)
+                                        .resize(600, 600) // Establece el tamaño deseado
+                                        .centerInside()   // Escala la imagen para que se ajuste manteniendo su aspecto
+                                        .into(spriteImageView);
                             }
                         });
                     } catch (JSONException e) {
