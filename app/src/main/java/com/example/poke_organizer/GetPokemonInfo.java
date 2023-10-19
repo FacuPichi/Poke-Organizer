@@ -1,16 +1,20 @@
 package com.example.poke_organizer;
 
-import android.os.Handler;
-import android.os.Looper;
+import android.widget.ImageView;
 import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.os.Handler;
+import android.os.Looper;
+import com.squareup.picasso.Picasso;
 
 public class GetPokemonInfo {
     private final TextView pokenameTextView;
+    private final ImageView spriteImageView;
 
-    public GetPokemonInfo(TextView pokenameTextView) {
+    public GetPokemonInfo(TextView pokenameTextView, ImageView spriteImageView) {
         this.pokenameTextView = pokenameTextView;
+        this.spriteImageView = spriteImageView;
     }
 
     public void execute(String relativeUrl) {
@@ -28,12 +32,19 @@ public class GetPokemonInfo {
                         JSONObject pokemonData = new JSONObject(response);
                         String name = pokemonData.getString("name");
 
+                        // Obten el sprite
+                        JSONObject sprites = pokemonData.getJSONObject("sprites");
+                        String spriteUrl = sprites.getString("front_default");
+
                         // Utilizo un Handler para ejecutar la actualización en el hilo principal
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
-                                // Establecemos el nombre en el TextView en el hilo principal
+                                // Establece el nombre en el TextView en el hilo principal
                                 pokenameTextView.setText(name);
+
+                                // Utiliza Picasso (o la biblioteca de tu elección) para cargar y mostrar el sprite
+                                Picasso.get().load(spriteUrl).into(spriteImageView);
                             }
                         });
                     } catch (JSONException e) {

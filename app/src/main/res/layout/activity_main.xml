@@ -30,9 +30,9 @@
         app:layout_constraintVertical_bias="0.31" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/PokeSprite"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginTop="72dp"
         android:contentDescription="@string/imagen_pokemon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="@string/tarea5" />
+
         </LinearLayout>
     </ScrollView>
 
