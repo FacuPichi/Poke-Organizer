@@ -22,18 +22,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047" />
 
+    <ImageView
+        android:id="@+id/divide_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:contentDescription="@string/barra_divisora"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokename"
+        app:srcCompat="@drawable/dividebar"
+        tools:ignore="ImageContrastCheck" />
+
     <TextView
         android:id="@+id/pokename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
+        android:padding="10dp"
         android:text="@string/nombre_pokemon"
-        app:layout_constraintBottom_toTopOf="@+id/level"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/divide_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PokeBackground"
-        app:layout_constraintVertical_bias="0.326" />
+        app:layout_constraintTop_toBottomOf="@id/PokeBackground" />
 
     <TextView
         android:id="@+id/level"
@@ -41,18 +55,19 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/level"
+        android:textColor="#263238"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintBottom_toBottomOf="@+id/divide_bar"
         app:layout_constraintEnd_toEndOf="@+id/pokename"
-        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pokename"
+        app:layout_constraintTop_toTopOf="@+id/divide_bar"
         app:layout_constraintVertical_bias="0.326" />
 
     <ImageView
         android:id="@+id/PokeBackground"
-        android:layout_width="@dimen/pokemonWidth"
-        android:layout_height="@dimen/pokemonHeight"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:contentDescription="@string/pantalla_pokedex"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,11 +101,13 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="95dp"
         android:layout_marginBottom="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/divide_bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/level"
-        app:layout_constraintTop_toBottomOf="@+id/pokename"
-        android:progressDrawable="@drawable/custom_progress_bar" />
+        app:layout_constraintTop_toTopOf="@+id/divide_bar" />
+
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
@@ -98,7 +115,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/level">
+        app:layout_constraintTop_toBottomOf="@id/divide_bar">
 
         <LinearLayout
             android:layout_width="match_parent"

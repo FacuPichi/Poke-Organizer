@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         int max = 1010; // Valor máximo
 
         // Genera un número aleatorio en el rango [min, max]
-        int numeroAleatorio = random.nextInt(max - min + 1) + min;
+        //int numeroAleatorio = random.nextInt(max - min + 1) + min;
 
         // numero pokedex para obtener el Pokémon
-        String relativeUrl = "pokemon/"+numeroAleatorio+"/";
+        String relativeUrl = "pokemon/"+51+"/";
         new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
 
         // establece el numero de nivel
