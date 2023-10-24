@@ -26,14 +26,28 @@
         android:id="@+id/pokename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nombre_pokemon"
         android:fontFamily="@font/roboto"
+        android:text="@string/nombre_pokemon"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PokeBackground"
+        app:layout_constraintVertical_bias="0.326" />
+
+    <ImageView
+        android:id="@+id/PokeBackground"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/pantalla_pokedex"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintVertical_bias="0.154"
+        app:srcCompat="@drawable/pokedexpantalla" />
 
     <ImageView
         android:id="@+id/PokeSprite"
@@ -50,13 +64,13 @@
         tools:ignore="ImageContrastCheck" />
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="413dp"
         android:layout_height="458dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pokename"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="272dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pokename">
 
         <LinearLayout
             android:layout_width="match_parent"

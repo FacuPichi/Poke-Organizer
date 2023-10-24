@@ -45,7 +45,7 @@ public class GetPokemonInfo {
 
                                 // Utiliza Picasso (o la biblioteca de tu elección) para cargar y mostrar el sprite
                                 Picasso.get().load(spriteUrl)
-                                        .resize(600, 600) // Establece el tamaño deseado
+                                        .resize(350, 350) // Establece el tamaño deseado
                                         .centerInside()   // Escala la imagen para que se ajuste manteniendo su aspecto
                                         .into(spriteImageView);
                             }
