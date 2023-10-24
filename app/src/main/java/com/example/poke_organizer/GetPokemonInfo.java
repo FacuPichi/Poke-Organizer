@@ -31,6 +31,7 @@ public class GetPokemonInfo {
                         // Procesa la respuesta JSON
                         JSONObject pokemonData = new JSONObject(response);
                         String name = pokemonData.getString("name");
+                        String mayusName = name.substring(0, 1).toUpperCase() + name.substring(1);
 
                         // Obten el sprite
                         JSONObject sprites = pokemonData.getJSONObject("sprites");
@@ -40,8 +41,9 @@ public class GetPokemonInfo {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
+
                                 // Establece el nombre en el TextView en el hilo principal
-                                pokenameTextView.setText(name);
+                                pokenameTextView.setText(mayusName);
 
                                 // Utiliza Picasso (o la biblioteca de tu elección) para cargar y mostrar el sprite
                                 Picasso.get().load(spriteUrl)

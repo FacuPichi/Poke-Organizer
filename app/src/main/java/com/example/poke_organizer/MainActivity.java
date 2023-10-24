@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         pokenameTextView = findViewById(R.id.pokename);
         pokeSprite = findViewById(R.id.PokeSprite);
    // Comienza desde 1 para obtener el primer Pokémon
-            String relativeUrl = "pokemon/3/";
+            String relativeUrl = "pokemon/250/";
             new GetPokemonInfo(pokenameTextView, pokeSprite).execute(relativeUrl);
 
 
