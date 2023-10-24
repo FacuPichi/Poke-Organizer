@@ -28,17 +28,31 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/nombre_pokemon"
-        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintBottom_toTopOf="@+id/level"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PokeBackground"
         app:layout_constraintVertical_bias="0.326" />
 
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/level"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintEnd_toEndOf="@+id/pokename"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokename"
+        app:layout_constraintVertical_bias="0.326" />
+
     <ImageView
         android:id="@+id/PokeBackground"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/pokemonWidth"
+        android:layout_height="@dimen/pokemonHeight"
         android:contentDescription="@string/pantalla_pokedex"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.154"
-        app:srcCompat="@drawable/pokedexpantalla" />
+        app:srcCompat="@drawable/pokedex_pantalla" />
 
     <ImageView
         android:id="@+id/PokeSprite"
@@ -63,14 +77,28 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ImageContrastCheck" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="154dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/level"
+        app:layout_constraintTop_toBottomOf="@+id/pokename"
+        android:progressDrawable="@drawable/custom_progress_bar" />
     <ScrollView
         android:id="@+id/scroll"
-        android:layout_width="413dp"
-        android:layout_height="458dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pokename">
+        app:layout_constraintTop_toBottomOf="@id/level">
 
         <LinearLayout
             android:layout_width="match_parent"

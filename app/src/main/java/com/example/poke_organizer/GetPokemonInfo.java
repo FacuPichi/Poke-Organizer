@@ -28,12 +28,12 @@ public class GetPokemonInfo {
 
                 if (response != null) {
                     try {
-                        // Procesa la respuesta JSON
+                        // Proceso la respuesta JSON
                         JSONObject pokemonData = new JSONObject(response);
                         String name = pokemonData.getString("name");
                         String mayusName = name.substring(0, 1).toUpperCase() + name.substring(1);
 
-                        // Obten el sprite
+                        // Obtengo el sprite
                         JSONObject sprites = pokemonData.getJSONObject("sprites");
                         String spriteUrl = sprites.getString("front_default");
 
