@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Poke-Organizer"
+rootProject.name = "parcial-1-am-acn4b-morandini-piccirillo"
 include ':app'
