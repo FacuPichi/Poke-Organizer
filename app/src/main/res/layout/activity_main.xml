@@ -16,10 +16,10 @@
         android:alpha="0.1"
         android:text="@string/experience"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/Title"
@@ -61,7 +61,8 @@
         app:layout_constraintBottom_toTopOf="@+id/divideBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PokeBackground" />
+        app:layout_constraintTop_toBottomOf="@id/PokeBackground"
+        tools:ignore="VisualLintOverlap" />
 
     <TextView
         android:id="@+id/level"

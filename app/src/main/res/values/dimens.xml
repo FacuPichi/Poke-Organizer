@@ -4,8 +4,6 @@
     <dimen name="pokemonHeight">150dp</dimen>
     <dimen name="progressBarWidth">154dp</dimen>
     <dimen name="progressBarHeight">25dp</dimen>
-    <dimen name="pokemonChangeWidth">56dp</dimen>
-    <dimen name="pokemonChangeHeight">56dp</dimen>
     <dimen name="pokemonChangeMarginTop">16dp</dimen>
     <dimen name="divideBarHeight">50dp</dimen>
     <dimen name="pokenamePadding">10dp</dimen>
@@ -19,4 +17,6 @@
     <dimen name="progressBarMarginBottom">18dp</dimen>
     <dimen name="scrollWidth">412dp</dimen>
     <dimen name="scrollHeight">504dp</dimen>
+    <dimen name="pokemonChangeWidth">43dp</dimen>
+    <dimen name="pokemonChangeHeight">40dp</dimen>
 </resources>
