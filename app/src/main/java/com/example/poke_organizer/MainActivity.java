@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView pokeSprite = findViewById(R.id.PokeSprite);
         ProgressBar progressBar = findViewById(R.id.progressBar); // Asegúrate de que el ID sea el correcto en tu XML.
         Button pokemonChange = findViewById(R.id.pokemonChange);
+        TextView experience = findViewById(R.id.exp);
+
         // Define el rango de números aleatorios que deseas
         int min = 1; // Valor mínimo
         int max = 1010; // Valor máximo
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         // establece el numero de nivel
         level.append(String.valueOf(levelValue));
+
+        // establece la experiencie
+        String xp = String.valueOf(progressValue) +" /100 exp";
+        experience.setText(xp);
 
         // Establece el progreso de la ProgressBar
         progressBar.setIndeterminate(false);

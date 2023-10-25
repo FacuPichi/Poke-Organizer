@@ -15,7 +15,7 @@
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:alpha="0.1"
-        android:text=""
+        android:text="@string/experience"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
@@ -106,6 +106,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ImageContrastCheck" />
 
+    <TextView
+        android:id="@+id/exp"
+        android:layout_width="141dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="40dp"
+        android:elevation="2dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.666" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -149,7 +163,8 @@
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
                 android:text="@string/pasear_al_perro"
-                app:layout_constraintStart_toStartOf="@+id/linearLay" />
+                app:layout_constraintStart_toStartOf="@+id/linearLay"
+                tools:ignore="RtlSymmetry" />
 
 
             <CheckBox
@@ -160,7 +175,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/limpiar_la_casa"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox4"
@@ -170,7 +186,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/lavar_la_ropa"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox2"
@@ -180,7 +197,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/ir_al_gimnasio"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox5"
@@ -190,7 +208,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/correr_10_km"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox6"
@@ -200,7 +219,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/ir_a_comprar_carne"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox7"
@@ -210,7 +230,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/terminar_el_trabajo_de_photoshop"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox8"
@@ -220,7 +241,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/arreglar_el_jardin"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox9"
@@ -230,7 +252,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/arreglar_el_agujero_en_el_techo"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox10"
@@ -240,7 +263,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/vaciar_la_fosa_asceptica"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox11"
@@ -250,7 +274,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/empezar_el_proyecto_de_programacion"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
             <CheckBox
                 android:id="@+id/checkBox12"
                 android:layout_width="match_parent"
@@ -259,7 +284,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/darle_de_comer_al_perro"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
             <CheckBox
                 android:id="@+id/checkBox13"
@@ -269,7 +295,8 @@
                 android:paddingStart="8dp"
                 android:text="@string/cortar_el_pasto_del_parque"
                 tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp" />
+                tools:layout_editor_absoluteY="238dp"
+                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
     </ScrollView>
