@@ -7,7 +7,6 @@
     android:background="@drawable/navbar"
     tools:context=".MainActivity"
     tools:ignore="ExtraText">
-|
 
     <Button
         android:id="@+id/pokemonChange"
@@ -70,7 +69,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/level"
-        android:textColor="#263238"
+        android:textColor="@color/levelColor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/divideBar"
         app:layout_constraintEnd_toEndOf="@+id/pokename"

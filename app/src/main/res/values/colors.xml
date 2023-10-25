@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorProgressBarBackground">#D3D3D3</color> <!-- Color de fondo -->
-    <color name="colorProgressBarProgress">#FFA500</color> <!-- Color de progreso -->
+    <color name="colorProgressBarProgress">#FFA500</color>
+    <color name="levelColor">#263238</color> <!-- Color de progreso -->
 
 </resources>
