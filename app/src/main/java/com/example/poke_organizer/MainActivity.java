@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 import java.util.Random;
-import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {

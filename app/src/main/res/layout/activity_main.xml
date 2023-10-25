@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/navbar"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
+|
 
     <Button
         android:id="@+id/pokemonChange"
@@ -17,7 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView7"
@@ -42,6 +45,7 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/scroll"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pokename"
         app:srcCompat="@drawable/dividebar"
@@ -57,7 +61,6 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/divide_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/PokeBackground" />
 
@@ -121,116 +124,154 @@
 
     <ScrollView
         android:id="@+id/scroll"
-        android:layout_width="418dp"
-        android:layout_height="304dp"
+        android:layout_width="412dp"
+        android:layout_height="504dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divide_bar"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/pokedex_pantalla" />
+        app:srcCompat="@drawable/pokedex_pantalla"
+        tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
+            android:id="@+id/linearLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/scroll">
 
             <CheckBox
                 android:id="@+id/checkBox1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                app:layout_constraintStart_toStartOf="@+id/linearLay" />
+
 
             <CheckBox
                 android:id="@+id/checkBox3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <CheckBox
                 android:id="@+id/checkBox4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <CheckBox
                 android:id="@+id/checkBox2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <CheckBox
                 android:id="@+id/checkBox5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <CheckBox
                 android:id="@+id/checkBox6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <CheckBox
                 android:id="@+id/checkBox7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <CheckBox
                 android:id="@+id/checkBox8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
             <CheckBox
                 android:id="@+id/checkBox9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="95dp"
-                tools:layout_editor_absoluteY="238dp"
-                tools:text="CheckBox 1"
+                android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:buttonTint="@android:color/holo_blue_light"/>
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@android:color/holo_blue_light"
+                android:paddingStart="8dp"
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@android:color/holo_blue_light"
+                android:paddingStart="8dp"
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
+            <CheckBox
+                android:id="@+id/checkBox12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@android:color/holo_blue_light"
+                android:paddingStart="8dp"
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint="@android:color/holo_blue_light"
+                android:paddingStart="8dp"
+                android:text="CheckBox 1"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="238dp" />
 
         </LinearLayout>
     </ScrollView>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
