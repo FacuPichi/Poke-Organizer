@@ -2,4 +2,21 @@
 <resources>
     <dimen name="pokemonWidth">150dp</dimen>
     <dimen name="pokemonHeight">150dp</dimen>
+    <dimen name="progressBarWidth">154dp</dimen>
+    <dimen name="progressBarHeight">25dp</dimen>
+    <dimen name="pokemonChangeWidth">56dp</dimen>
+    <dimen name="pokemonChangeHeight">56dp</dimen>
+    <dimen name="pokemonChangeMarginTop">16dp</dimen>
+    <dimen name="divideBarHeight">50dp</dimen>
+    <dimen name="pokenamePadding">10dp</dimen>
+    <dimen name="PokeBackgroundWidth">150dp</dimen>
+    <dimen name="PokeBackgroundHeight">150dp</dimen>
+    <dimen name="expWidth">141dp</dimen>
+    <dimen name="expHeight">19dp</dimen>
+    <dimen name="progressBarMarginStart">48dp</dimen>
+    <dimen name="progressBarMarginTop">15dp</dimen>
+    <dimen name="progressBarMarginEnd">95dp</dimen>
+    <dimen name="progressBarMarginBottom">18dp</dimen>
+    <dimen name="scrollWidth">412dp</dimen>
+    <dimen name="scrollHeight">504dp</dimen>
 </resources>
