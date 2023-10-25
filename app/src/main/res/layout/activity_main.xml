@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/pasear_al_perro"
                 app:layout_constraintStart_toStartOf="@+id/linearLay" />
 
 
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/limpiar_la_casa"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/lavar_la_ropa"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/ir_al_gimnasio"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/correr_10_km"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -198,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/ir_a_comprar_carne"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/terminar_el_trabajo_de_photoshop"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -218,7 +218,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/arreglar_el_jardin"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -228,7 +228,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/arreglar_el_agujero_en_el_techo"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -238,7 +238,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/vaciar_la_fosa_asceptica"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -248,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/empezar_el_proyecto_de_programacion"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
             <CheckBox
@@ -257,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/darle_de_comer_al_perro"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 
@@ -267,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/holo_blue_light"
                 android:paddingStart="8dp"
-                android:text="CheckBox 1"
+                android:text="@string/cortar_el_pasto_del_parque"
                 tools:layout_editor_absoluteX="95dp"
                 tools:layout_editor_absoluteY="238dp" />
 

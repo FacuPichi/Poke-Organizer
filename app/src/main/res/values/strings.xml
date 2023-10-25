@@ -11,4 +11,17 @@
     <string name="pantalla_pokedex">pantalla pokedex</string>
     <string name="level">"Nivel "</string>
     <string name="barra_divisora">barra divisora</string>
+    <string name="pasear_al_perro">Pasear al perro</string>
+    <string name="limpiar_la_casa">Limpiar la casa</string>
+    <string name="lavar_la_ropa">Lavar la ropa</string>
+    <string name="ir_al_gimnasio">Ir al gimnasio</string>
+    <string name="correr_10_km">Correr 10 km</string>
+    <string name="ir_a_comprar_carne">Ir a comprar carne</string>
+    <string name="terminar_el_trabajo_de_photoshop">Terminar el trabajo de photoshop</string>
+    <string name="arreglar_el_jardin">Arreglar el jardin</string>
+    <string name="arreglar_el_agujero_en_el_techo">Arreglar el agujero en el techo</string>
+    <string name="vaciar_la_fosa_asceptica">Vaciar la fosa asceptica</string>
+    <string name="empezar_el_proyecto_de_programacion">Empezar el proyecto de programacion</string>
+    <string name="darle_de_comer_al_perro">Darle de comer al perro</string>
+    <string name="cortar_el_pasto_del_parque">Cortar el pasto del parque</string>
 </resources>
