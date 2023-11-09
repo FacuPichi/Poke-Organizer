@@ -137,6 +137,15 @@
         app:layout_constraintStart_toEndOf="@+id/level"
         app:layout_constraintTop_toTopOf="@+id/divideBar"/>
 
+    <Button
+        android:id="@+id/perfil"
+        android:layout_width="67dp"
+        android:layout_height="46dp"
+        android:text="@string/perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/divideBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokename" />
+
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="@dimen/scrollWidth"

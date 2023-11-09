@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 import java.util.Random;
+import android.content.Intent;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.progressBar); // Asegúrate de que el ID sea el correcto en tu XML.
         Button pokemonChange = findViewById(R.id.pokemonChange);
         TextView experience = findViewById(R.id.exp);
-
+        Button botonIrAMain2 = findViewById(R.id.perfil); // Obtén una referencia al botón
         // Define el rango de números aleatorios que deseas
         int min = 1; // Valor mínimo
         int max = 1010; // Valor máximo
@@ -55,5 +57,18 @@ public class MainActivity extends AppCompatActivity {
             String relativeUrl1 = "pokemon/" + numeroAleatorio1 + "/";
             new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1);
         });
+
+
+        // Configura un OnClickListener para el botón
+        // Configura un OnClickListener para el botón
+        botonIrAMain2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Crea un Intent para iniciar MainActivity2
+                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
 }

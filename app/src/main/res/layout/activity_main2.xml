@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/navbar"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/poke_organizer"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <ImageView
+        android:id="@+id/pokeBackground"
+        android:layout_width="@dimen/PokeBackgroundWidth"
+        android:layout_height="@dimen/PokeBackgroundHeight"
+        android:contentDescription="@string/pantalla_pokedex"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.185"
+        app:srcCompat="@drawable/pokedex_pantalla" />
+
+    <ImageView
+        android:id="@+id/divideBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/divideBarHeight"
+        android:layout_marginTop="60dp"
+        android:contentDescription="@string/barra_divisora"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/scroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokeBackground"
+        app:srcCompat="@drawable/dividebar"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/nombreUsuario"
+        android:layout_width="18dp"
+        android:layout_height="13dp"
+        android:text="@string/nombreUsuario"
+        app:layout_constraintBottom_toBottomOf="@+id/divideBar2"
+        app:layout_constraintEnd_toStartOf="@+id/nivelUsuario"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divideBar2"
+        app:layout_constraintVertical_bias="0.405" />
+
+    <TextView
+        android:id="@+id/nivelUsuario"
+        android:layout_width="18dp"
+        android:layout_height="13dp"
+        android:text="@string/nivelUsuario"
+        app:layout_constraintBottom_toBottomOf="@+id/divideBar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divideBar2"
+        app:layout_constraintVertical_bias="0.428" />
+</androidx.constraintlayout.widget.ConstraintLayout>

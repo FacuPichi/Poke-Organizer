@@ -25,4 +25,7 @@
     <string name="darle_de_comer_al_perro">Darle de comer al perro</string>
     <string name="cortar_el_pasto_del_parque">Cortar el pasto del parque</string>
     <string name="experience">0</string>
+    <string name="perfil">Perfil</string>
+    <string name="nombreUsuario" />
+    <string name="nivelUsuario" />
 </resources>
