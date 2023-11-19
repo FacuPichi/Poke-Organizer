@@ -37,6 +37,20 @@
         app:srcCompat="@drawable/pokedex_pantalla" />
 
     <ImageView
+        android:id="@+id/PokeSprite"
+        android:layout_width="61dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="152dp"
+        android:contentDescription="@string/imagen_pokemon"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/divideBar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
         android:id="@+id/divideBar2"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/divideBarHeight"
@@ -53,8 +67,9 @@
 
     <TextView
         android:id="@+id/nombreUsuario"
-        android:layout_width="18dp"
-        android:layout_height="13dp"
+        android:layout_width="114dp"
+        android:layout_height="28dp"
+        android:fontFamily="@font/roboto_bold"
         android:text="@string/nombreUsuario"
         app:layout_constraintBottom_toBottomOf="@+id/divideBar2"
         app:layout_constraintEnd_toStartOf="@+id/nivelUsuario"
@@ -65,13 +80,14 @@
 
     <TextView
         android:id="@+id/nivelUsuario"
-        android:layout_width="18dp"
-        android:layout_height="13dp"
-        android:text="@string/nivelUsuario"
+        android:layout_width="84dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/level"
         app:layout_constraintBottom_toBottomOf="@+id/divideBar2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divideBar2"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintVertical_bias="0.333" />
 </androidx.constraintlayout.widget.ConstraintLayout>
