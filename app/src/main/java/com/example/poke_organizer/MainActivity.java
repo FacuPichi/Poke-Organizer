@@ -6,12 +6,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 import java.util.Random;
 import android.content.Intent;
 import android.view.View;
 import java.io.File;
+import android.view.KeyEvent;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,39 +35,66 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.progressBar);
         Button pokemonChange = findViewById(R.id.pokemonChange);
         TextView experience = findViewById(R.id.exp);
-        Button botonIrAMain2 = findViewById(R.id.perfil);
+        Button perfil = findViewById(R.id.perfil);
         int min = 1;
         int max = 1010;
-
+        UserData User1 = JsonHandler.loadJsonData(this);
         int numeroAleatorio = random.nextInt(max - min + 1) + min;
-
         String relativeUrl = "pokemon/"+numeroAleatorio+"/";
         new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
+        CheckBox checkBox = findViewById(R.id.customCheckBox);
+        checkBox.setChecked(true); // Establecer el estado del CheckBox en true
+
 
         // Llamada para generar el archivo JSON con datos dummy
-       level.append(String.valueOf(levelValue));
+        level.append(String.valueOf(levelValue));
 
         String xp = String.valueOf(progressValue) +" /100 exp";
         experience.setText(xp);
-
+        User1.setExp(progressValue);
+        User1.setLvl(levelValue);
         progressBar.setIndeterminate(false);
         progressBar.setMax(100);
         progressBar.setProgress(progressValue);
 
         pokemonChange.setOnClickListener(view -> {
             int numeroAleatorio1 = random.nextInt(max - min + 1) + min;
+            User1.setLastPokemon(numeroAleatorio1);
+            JsonHandler.updateJsonData(this,User1);
             String relativeUrl1 = "pokemon/" + numeroAleatorio1 + "/";
             new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1);
 
         });
 
-        botonIrAMain2.setOnClickListener(new View.OnClickListener() {
+        perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
+                // Crear un nuevo intent
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                // Agrega el número aleatorio como extra al Intent
-                intent.putExtra("numeroAleatorio1", numeroAleatorio);
-                // Inicia la segunda actividad
+
+                // Iniciar la segunda actividad
                 startActivity(intent);
+
+                // Actualizar el último Pokémon después de iniciar la segunda actividad
+                User1.setLastPokemon(numeroAleatorio);
+                JsonHandler.updateJsonData(MainActivity.this, User1);
+            }
+        });
+
+
+        checkBox.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // Verifica si la tecla presionada es Enter
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Realiza la acción que deseas al presionar Enter
+                    // Por ejemplo, cambiar el estado del CheckBox
+                    checkBox.setChecked(!checkBox.isChecked());
+                    return true;
+                }
+                // Debes devolver un valor booleano en cualquier caso
+                return false;
             }
         });
 
