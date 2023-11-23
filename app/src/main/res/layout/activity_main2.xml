@@ -13,7 +13,7 @@
         android:layout_height="46dp"
         android:fontFamily="@font/roboto_bold"
         android:padding="@dimen/pokenamePadding"
-        android:text="Tareas"
+        android:text="@string/tareas"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/botona"
         app:layout_constraintEnd_toEndOf="parent"

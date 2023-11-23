@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "888499206683",
+    "project_id": "poke-organizer",
+    "storage_bucket": "poke-organizer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888499206683:android:e77181e9e74443795856be",
+        "android_client_info": {
+          "package_name": "com.example.poke_organizer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4rEG2Rg_PzAH2uCc4At8mY5nfTV1T_Y4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

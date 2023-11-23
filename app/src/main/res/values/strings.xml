@@ -28,4 +28,7 @@
     <string name="perfil">Perfil</string>
     <string name="nombreUsuario" />
     <string name="nivelUsuario" />
+    <string name="perfil_button">Perfil</string>
+    <string name="agregar_tarea">Agregar Tarea</string>
+    <string name="tareas">Tareas</string>
 </resources>
