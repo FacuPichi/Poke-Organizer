@@ -5,8 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/navbar"
-    tools:context=".MainActivity"
+    tools:context=".TaskActivity"
     tools:ignore="ExtraText">
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:alpha="0.0"
+        android:text="@string/perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/Botonb"
+        app:layout_constraintStart_toStartOf="@+id/Botonb"
+        app:layout_constraintTop_toTopOf="@+id/Botonb"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextSizeCheck" />
 
     <Button
         android:id="@+id/pokemonChange"

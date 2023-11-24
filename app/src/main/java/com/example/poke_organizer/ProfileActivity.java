@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 
-public class MainActivity2 extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity2 extends AppCompatActivity {
         tareas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Crear un nuevo intent
-                Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, TaskActivity.class);
 
                 // Iniciar la segunda actividad
                 startActivity(intent);

@@ -31,4 +31,5 @@
     <string name="perfil_button">Perfil</string>
     <string name="agregar_tarea">Agregar Tarea</string>
     <string name="tareas">Tareas</string>
+    <string name="perfil_title">Perfil</string>
 </resources>
