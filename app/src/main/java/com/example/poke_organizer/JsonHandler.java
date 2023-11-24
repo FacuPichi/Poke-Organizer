@@ -23,7 +23,14 @@ public class JsonHandler {
             FileOutputStream fileOutputStream = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonData.getBytes());
             fileOutputStream.close();
-            Log.d("JsonHandler", "Datos guardados correctamente en " + FILE_NAME);
+            Log.d("JsonHandlerSave", "Datos guardados correctamente en " + FILE_NAME);
+            Log.d("JsonHandlerSave", "Datos en UserData: " +
+                    "Nombre: " + userData.getNombre() +
+                    ", Nivel: " + userData.getLvl() +
+                    ", Experiencia: " + userData.getExp() +
+                    ", Último Pokémon: " + userData.getLastPokemon() +
+                    ", Pokedex: " + userData.getPokedex() +
+                    ", Tareas: " + userData.getTarea());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,14 +52,18 @@ public class JsonHandler {
 
             fileInputStream.close();
 
-            Gson gson = new Gson();
-            userData = gson.fromJson(stringBuilder.toString(), UserData.class);
+            if (stringBuilder.length() > 0) {
+                Gson gson = new Gson();
+                userData = gson.fromJson(stringBuilder.toString(), UserData.class);
 
-            Log.d("JsonHandler", "Datos cargados correctamente desde " + FILE_NAME);
-            Log.d("JsonHandler", "Nombre: " + userData.getNombre() +
-                    ", Nivel: " + userData.getLvl() +
-                    ", Experiencia: " + userData.getExp() +
-                    ", Último Pokémon: " + userData.getLastPokemon());
+                Log.d("JsonHandler", "Datos cargados correctamente desde " + FILE_NAME);
+                Log.d("JsonHandler", "Nombre: " + userData.getNombre() +
+                        ", Nivel: " + userData.getLvl() +
+                        ", Experiencia: " + userData.getExp() +
+                        ", Último Pokémon: " + userData.getLastPokemon());
+            } else {
+                Log.d("JsonHandler", "El archivo " + FILE_NAME + " está vacío.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

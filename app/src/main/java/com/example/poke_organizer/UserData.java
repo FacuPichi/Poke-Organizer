@@ -7,15 +7,17 @@ public class UserData {
     private String nombre;
     private int lvl;
     private int exp;
-    private int LastPokemon;
-    private ArrayList<String> Pokedex;
+    private int lastPokemon;
+    private ArrayList<String> pokedex;
+    private ArrayList<String> tareas;
 
     public UserData(String nombre, int lvl, int exp, int lastPokemon) {
         this.nombre = nombre;
         this.lvl = lvl;
         this.exp = exp;
-        this.LastPokemon = lastPokemon;
-        this.Pokedex = new ArrayList<String>();
+        this.lastPokemon = lastPokemon;
+        this.pokedex = new ArrayList<String>();
+        this.tareas = new ArrayList<String>();
     }
 
     public String getNombre() {
@@ -39,18 +41,40 @@ public class UserData {
     }
 
     public int getLastPokemon() {
-        return LastPokemon;
+        return lastPokemon;
     }
 
     public void setLastPokemon(int lastPokemon) {
-        this.LastPokemon = lastPokemon;
+        this.lastPokemon = lastPokemon;
     }
 
     public ArrayList<String> getPokedex() {
-        return Pokedex;
+        return pokedex;
     }
 
-    public void setPokedex(String pokemon) {
-        this.Pokedex.add(pokemon);
+    public void addPokemon(String pokemon) {
+        if (this.pokedex == null) {
+            this.pokedex = new ArrayList<String>();
+            this.pokedex.add(pokemon);
+        }
+        this.pokedex.add(pokemon);
     }
+
+    public ArrayList<String> getTarea() {
+        return tareas;
+    }
+
+    public void setTarea(ArrayList<String> tarea){
+        this.tareas = tarea;
+    }
+
+
+    public void addTarea(String tarea) {
+        if (this.tareas == null) {
+            this.tareas = new ArrayList<String>();
+            this.tareas.add(tarea);
+        }
+        this.tareas.add(tarea);
+    }
+
 }

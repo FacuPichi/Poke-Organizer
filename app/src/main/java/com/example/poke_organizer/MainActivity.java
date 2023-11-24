@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -34,6 +35,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        UserData User1 = JsonHandler.loadJsonData(this);
+        // Verificar si hay tareas en User1
+        ArrayList<String> tareas = User1.getTarea();
+        if (tareas != null && !tareas.isEmpty()) {
+            LinearLayout linearLayout = findViewById(R.id.linearLay);
+
+            // Generar dinámicamente los CheckBox para las tareas existentes
+            for (String tarea : tareas) {
+                CheckBox checkBox = new CheckBox(MainActivity.this);
+                checkBox.setText(tarea);
+
+                // Agregar el CheckBox al LinearLayout
+                linearLayout.addView(checkBox);
+
+                // Agregar el CheckBox a la lista
+                checkBoxList.add(checkBox);
+
+                // Agregar un listener al CheckBox para detectar el cambio de estado
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            // Obtengo el texto del CheckBox marcado
+                            String textoCheckBox = ((CheckBox) buttonView).getText().toString();
+
+                            // Elimino la tarea de mi User
+                            User1.getTarea().remove(textoCheckBox);
+
+                            // Elimino el CheckBox del LinearLayout y de la lista
+                            linearLayout.removeView(buttonView);
+                            checkBoxList.remove(buttonView);
+                        }
+                    }
+                });
+            }
+        }
+
+
+
+
         Random random = new Random();
         int levelValue = 10;
         int progressValue = 35;
@@ -47,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         Button agregar = findViewById(R.id.agregar);
         int min = 1;
         int max = 1010;
-        UserData User1 = JsonHandler.loadJsonData(this);
         int numeroAleatorio = random.nextInt(max - min + 1) + min;
         String relativeUrl = "pokemon/"+numeroAleatorio+"/";
         new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
@@ -67,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Metodo para cambiar a pokemon aleatorio
         pokemonChange.setOnClickListener(view -> {
-            int numeroAleatorio1 = random.nextInt(max - min + 1) + min;
+            final int numeroAleatorio1 = random.nextInt(max - min + 1) + min;
             User1.setLastPokemon(numeroAleatorio1);
             JsonHandler.updateJsonData(this,User1);
             String relativeUrl1 = "pokemon/" + numeroAleatorio1 + "/";
@@ -121,7 +161,11 @@ public class MainActivity extends AppCompatActivity {
                         // Crear un nuevo CheckBox con el texto de la tarea
                         CheckBox checkBox = new CheckBox(MainActivity.this);
                         checkBox.setText(tarea);
+                        //guardar tarea
 
+                        User1.addTarea(tarea);
+                        JsonHandler.updateJsonData(MainActivity.this, User1);
+                        JsonHandler.saveJsonData(MainActivity.this,User1);
                         // Agregar el CheckBox al LinearLayout
                         linearLayout.addView(checkBox);
 
@@ -133,7 +177,14 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (isChecked) {
-                                    // Eliminar el CheckBox del LinearLayout y de la lista
+                                    // Obtengo el texto del CheckBox marcado
+                                    String textoCheckBox = ((CheckBox) buttonView).getText().toString();
+
+                                    //Elimino la tarea de mi User
+                                    User1.getTarea().remove(textoCheckBox);
+                                    JsonHandler.updateJsonData(MainActivity.this, User1);
+                                    JsonHandler.saveJsonData(MainActivity.this,User1);
+                                    // Elimino el CheckBox del LinearLayout y de la lista
                                     linearLayout.removeView(buttonView);
                                     checkBoxList.remove(buttonView);
                                 }
@@ -146,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
+
 
 
 

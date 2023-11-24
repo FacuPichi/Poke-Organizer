@@ -100,9 +100,12 @@
         android:padding="@dimen/pokenamePadding"
         android:text="@string/perfil_button"
         android:textSize="18sp"
-        tools:ignore="VisualLintOverlap"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="116dp" />
+        app:layout_constraintBottom_toTopOf="@+id/Botonb"
+        app:layout_constraintEnd_toStartOf="@+id/perfil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonChange"
+        app:layout_constraintVertical_bias="0.576"
+        tools:ignore="VisualLintOverlap" />
 
     <ImageView
         android:id="@+id/BotonA"
@@ -127,7 +130,7 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/level"
         app:layout_constraintEnd_toStartOf="@+id/PokeBackground"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.632"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BotonA"
         app:layout_constraintVertical_bias="0.444"
