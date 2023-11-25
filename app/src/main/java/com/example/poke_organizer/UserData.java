@@ -5,23 +5,26 @@ import java.util.ArrayList;
 public class UserData {
 
     private String nombre;
+    private String mail;
     private int lvl;
     private int exp;
     private int lastPokemon;
     private ArrayList<String> pokedex;
     private ArrayList<String> tareas;
 
-    public UserData(String nombre, int lvl, int exp, int lastPokemon) {
+    public UserData(String nombre, String   mail) {
         this.nombre = nombre;
-        this.lvl = lvl;
-        this.exp = exp;
-        this.lastPokemon = lastPokemon;
+        this.mail = mail;
         this.pokedex = new ArrayList<String>();
         this.tareas = new ArrayList<String>();
     }
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getMail() {
+        return mail;
     }
 
     public int getLvl() {

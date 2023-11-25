@@ -2,6 +2,7 @@ package com.example.poke_organizer;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Random;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class TaskActivity extends AppCompatActivity {
@@ -102,6 +104,7 @@ public class TaskActivity extends AppCompatActivity {
         progressBar.setIndeterminate(false);
         progressBar.setMax(100);
         progressBar.setProgress(progressValue);
+        agregar.setBackgroundColor(ContextCompat.getColor(this, R.color.ThemeColor));
 
         //Metodo para cambiar a pokemon aleatorio
         pokemonChange.setOnClickListener(view -> {
@@ -110,7 +113,7 @@ public class TaskActivity extends AppCompatActivity {
             JsonHandler.updateJsonData(this,User1);
             String relativeUrl1 = "pokemon/" + numeroAleatorio1 + "/";
             new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1);
-
+            Toast.makeText(this, "Cambio de Pokémon: " + numeroAleatorio1, Toast.LENGTH_SHORT).show();
         });
 
         //Metodo para irse al perfil
@@ -120,12 +123,13 @@ public class TaskActivity extends AppCompatActivity {
                 // Crear un nuevo intent
                 Intent intent = new Intent(TaskActivity.this, ProfileActivity.class);
 
-                // Iniciar la segunda actividad
-                startActivity(intent);
-
                 // Actualizar el último Pokémon después de iniciar la segunda actividad
                 User1.setLastPokemon(numeroAleatorio);
                 JsonHandler.updateJsonData(TaskActivity.this, User1);
+                // Iniciar la segunda actividad
+                Toast.makeText(TaskActivity.this, "El nuevo pokemon sera: " + User1.getLastPokemon(), Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+
             }
         });
 

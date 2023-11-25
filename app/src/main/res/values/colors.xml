@@ -6,4 +6,5 @@
     <color name="colorProgressBarProgress">#FFA500</color>
     <color name="levelColor">#263238</color> <!-- Color de progreso -->
     <color name="ThemeColor">#FC1B53</color>
+    <color name="ThemeColorDark">#9F004A</color>
 </resources>
