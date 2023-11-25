@@ -8,20 +8,65 @@
     tools:context=".RegisterActivity">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout"
+        android:layout_width="371dp"
+        android:layout_height="450dp"
+        android:background="#FB1B53"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".RegisterActivity">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="182dp"
+            android:layout_height="42dp"
+            android:layout_below="@+id/editTextEmail"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="89dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Ingrese su mail"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="198dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="73dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Ingrese su Nombre"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="186dp"
+            android:layout_height="41dp"
+            android:layout_below="@+id/editTextName"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="85dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Ingrese su mail"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="50dp"
+            android:fontFamily="@font/roboto"
+            android:foreground="@color/black"
+            android:foregroundTint="#9F004A"
             android:hint="Escribe tu nombre"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -30,20 +75,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTextName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="71dp"
+            android:fontFamily="@font/roboto"
+            android:foreground="#9F004A"
+            android:hint="Escribe tu correo electrónico"
+            android:inputType="textEmailAddress"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/editTextEmail2"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_below="@+id/editTextEmail"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="65dp"
+            android:layout_marginBottom="127dp"
+            android:fontFamily="@font/roboto"
+            android:foreground="#9F004A"
             android:hint="Escribe tu correo electrónico"
             android:inputType="textEmailAddress"
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="126dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/editTextEmail"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="121dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginBottom="46dp"
             android:text="Registrarse" />
 
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
