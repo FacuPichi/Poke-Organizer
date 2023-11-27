@@ -67,14 +67,11 @@ public class JsonHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        if(userData.getLvl()!= 1){
+            Log.d("JsonHandler", "No tiene nivel");
+            userData.setLvl(1);
+        }
         return userData;
     }
-
-    // Método para actualizar los datos en el archivo JSON
-    public static void updateJsonData(Context context, UserData userData) {
-        saveJsonData(context, userData);
-    }
-
 
 }

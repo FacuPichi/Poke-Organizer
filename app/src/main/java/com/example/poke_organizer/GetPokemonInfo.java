@@ -12,6 +12,7 @@ public class GetPokemonInfo {
     private final TextView pokenameTextView;
     private final ImageView spriteImageView;
 
+    // Agrega un parámetro para el número del Pokémon en el constructor
     public GetPokemonInfo(TextView pokenameTextView, ImageView spriteImageView) {
         this.pokenameTextView = pokenameTextView;
         this.spriteImageView = spriteImageView;
@@ -31,6 +32,9 @@ public class GetPokemonInfo {
                     String name = pokemonData.getString("name");
                     String mayusName = name.substring(0, 1).toUpperCase() + name.substring(1);
 
+                    // Obtengo el número del Pokémon
+                    int pokemonNumber = pokemonData.getInt("id");
+
                     // Obtengo el sprite
                     JSONObject sprites = pokemonData.getJSONObject("sprites");
                     String spriteUrl = sprites.getString("front_default");
@@ -38,8 +42,8 @@ public class GetPokemonInfo {
                     // Utilizo un Handler para ejecutar la actualización en el hilo principal
                     new Handler(Looper.getMainLooper()).post(() -> {
 
-                        // Establece el nombre en el TextView en el hilo principal
-                        pokenameTextView.setText(mayusName);
+                        // Establece el nombre completo en el TextView en el hilo principal
+                        pokenameTextView.setText("#" + pokemonNumber + " " + mayusName);
 
                         // Utiliza Picasso (o la biblioteca de tu elección) para cargar y mostrar el sprite
                         Picasso.get().load(spriteUrl)

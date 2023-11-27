@@ -9,19 +9,6 @@
     tools:ignore="ExtraText">
 
     <Button
-        android:id="@+id/login"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="4dp"
-        android:alpha="0.0"
-        android:text="@string/perfil"
-        app:layout_constraintBottom_toBottomOf="@+id/Botonb"
-        app:layout_constraintStart_toStartOf="@+id/Botonb"
-        app:layout_constraintTop_toTopOf="@+id/Botonb"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextSizeCheck" />
-
-    <Button
         android:id="@+id/pokemonChange"
         android:layout_width="@dimen/pokemonChangeWidth"
         android:layout_height="@dimen/pokemonChangeHeight"
@@ -92,11 +79,41 @@
         app:layout_constraintTop_toTopOf="@+id/divideBar"
         app:layout_constraintVertical_bias="0.326" />
 
+    <TextView
+        android:id="@+id/pagina3"
+        android:layout_width="66dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="@dimen/pokenamePadding"
+        android:text="@string/perfil_button"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/Botonb"
+        app:layout_constraintEnd_toStartOf="@+id/perfil"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonChange"
+        app:layout_constraintVertical_bias="0.568"
+        tools:ignore="VisualLintOverlap" />
+
+    <ImageView
+        android:id="@+id/BotonA"
+        android:layout_width="48dp"
+        android:layout_height="53dp"
+        android:contentDescription="@string/pantalla_pokedex"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/level"
+        app:layout_constraintEnd_toStartOf="@+id/PokeBackground"
+        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        app:layout_constraintVertical_bias="0.237"
+        app:srcCompat="@drawable/boton_a"
+        tools:ignore="ImageContrastCheck" />
+
     <Button
         android:id="@+id/perfil"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="46dp"
+        android:layout_height="51dp"
         android:alpha="0.0"
         android:text="@string/perfil"
         app:layout_constraintBottom_toBottomOf="@+id/BotonA"
@@ -105,49 +122,31 @@
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextSizeCheck" />
 
-    <TextView
-        android:id="@+id/pagina3"
-        android:layout_width="73dp"
-        android:layout_height="42dp"
-        android:fontFamily="@font/roboto_bold"
-        android:padding="@dimen/pokenamePadding"
-        android:text="@string/perfil_button"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/Botonb"
-        app:layout_constraintEnd_toStartOf="@+id/perfil"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pokemonChange"
-        app:layout_constraintVertical_bias="0.576"
-        tools:ignore="VisualLintOverlap" />
-
-    <ImageView
-        android:id="@+id/BotonA"
-        android:layout_width="40dp"
-        android:layout_height="41dp"
-        android:contentDescription="@string/pantalla_pokedex"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/level"
-        app:layout_constraintEnd_toStartOf="@+id/PokeBackground"
-        app:layout_constraintHorizontal_bias="0.632"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title"
-        app:layout_constraintVertical_bias="0.204"
-        app:srcCompat="@drawable/boton_a"
-        tools:ignore="ImageContrastCheck" />
-
     <ImageView
         android:id="@+id/Botonb"
-        android:layout_width="40dp"
-        android:layout_height="41dp"
+        android:layout_width="48dp"
+        android:layout_height="53dp"
         android:contentDescription="@string/pantalla_pokedex"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/level"
         app:layout_constraintEnd_toStartOf="@+id/PokeBackground"
-        app:layout_constraintHorizontal_bias="0.632"
+        app:layout_constraintHorizontal_bias="0.766"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BotonA"
-        app:layout_constraintVertical_bias="0.444"
+        app:layout_constraintVertical_bias="0.452"
         app:srcCompat="@drawable/boton_b" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="49dp"
+        android:layout_height="53dp"
+        android:alpha="0.0"
+        android:text="@string/perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/Botonb"
+        app:layout_constraintStart_toStartOf="@+id/Botonb"
+        app:layout_constraintTop_toTopOf="@+id/Botonb"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck,TextSizeCheck" />
 
     <ImageView
         android:id="@+id/PokeBackground"

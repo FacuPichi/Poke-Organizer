@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -27,14 +28,22 @@ public class TaskActivity extends AppCompatActivity {
 
 
     private List<CheckBox> checkBoxList = new ArrayList<>();
+    private UserData User1; // Declarar la variable aquí
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        UserData User1 = JsonHandler.loadJsonData(this);
+        User1 = JsonHandler.loadJsonData(this);
 
+        if (User1 == null ) {
+            // Redirigir al usuario a RegisterActivity
+            Intent intent = new Intent(TaskActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            finish(); // Finalizar TaskActivity para que el usuario no pueda volver a ella con el botón de retroceso
+            return; // Salir del método onCreate para evitar ejecutar el resto del código
+        }
         // Verifico si hay tareas en User1
         ArrayList<String> tareas = User1.getTarea();
         if (tareas != null && !tareas.isEmpty()) {
@@ -58,9 +67,17 @@ public class TaskActivity extends AppCompatActivity {
                         if (isChecked) {
                             // Obtengo el texto del CheckBox marcado
                             String textoCheckBox = ((CheckBox) buttonView).getText().toString();
+                            TextView experience = findViewById(R.id.exp);
+                            ProgressBar progressBar = findViewById(R.id.progressBar);
+                            // Cargo la experiencia
+                            User1.setExp(User1.getExp() + 10);
 
+                            // Actualizo el texto de experiencia
+                            experience.setText(User1.getExp() + " / 100 exp");
+                            progressBar.setProgress(User1.getExp());
                             // Elimino la tarea de mi User
                             User1.getTarea().remove(textoCheckBox);
+                            JsonHandler.saveJsonData(TaskActivity.this, User1);
 
                             // Elimino el CheckBox del LinearLayout y de la lista
                             linearLayout.removeView(buttonView);
@@ -75,8 +92,6 @@ public class TaskActivity extends AppCompatActivity {
 
         //inicialización y declaración de variables
         Random random = new Random();
-        int levelValue = 10;
-        int progressValue = 0;
         TextView pokename = findViewById(R.id.pokename);
         TextView level = findViewById(R.id.level);
         ImageView pokeSprite = findViewById(R.id.PokeSprite);
@@ -88,32 +103,41 @@ public class TaskActivity extends AppCompatActivity {
         Button agregar = findViewById(R.id.agregar);
         int min = 1;
         int max = 1010;
-        int numeroAleatorio = random.nextInt(max - min + 1) + min;
-        String relativeUrl = "pokemon/"+numeroAleatorio+"/";
-        new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
+        //int numeroAleatorio = random.nextInt(max - min + 1) + min;
+        //String relativeUrl = "pokemon/"+numeroAleatorio+"/";
+        //new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
         //termino la inicializacion
 
 
 
+
         // Llamada para generar el archivo JSON con datos dummy
-        level.append(String.valueOf(levelValue));
-        String xp = String.valueOf(progressValue) +" /100 exp";
-        experience.setText(xp);
-        User1.setExp(progressValue);
-        User1.setLvl(levelValue);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                experience.setText(User1.getExp() +" /100 exp");
+            }
+        });
         progressBar.setIndeterminate(false);
         progressBar.setMax(100);
-        progressBar.setProgress(progressValue);
+        progressBar.setProgress(User1.getExp());
         agregar.setBackgroundColor(ContextCompat.getColor(this, R.color.ThemeColor));
+        int numeroPokemon = User1.getLastPokemon();
+        String relativeUrl = "pokemon/"+numeroPokemon+"/";
+        new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
+        level.append(String.valueOf(User1.getLvl()));
+        //termino la inicializacion
+
 
         //Metodo para cambiar a pokemon aleatorio
         pokemonChange.setOnClickListener(view -> {
-            final int numeroAleatorio1 = random.nextInt(max - min + 1) + min;
-            User1.setLastPokemon(numeroAleatorio1);
-            JsonHandler.updateJsonData(this,User1);
-            String relativeUrl1 = "pokemon/" + numeroAleatorio1 + "/";
+            final int pokemonAleatorio = random.nextInt(max - min + 1) + min;
+            User1.setLastPokemon(pokemonAleatorio);
+            JsonHandler.saveJsonData(TaskActivity.this,User1);
+            String relativeUrl1 = "pokemon/" + pokemonAleatorio + "/";
+            User1.addPokemon(String.valueOf(pokemonAleatorio));
             new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1);
-            Toast.makeText(this, "Cambio de Pokémon: " + numeroAleatorio1, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Cambio de Pokémon: " + pokemonAleatorio, Toast.LENGTH_SHORT).show();
         });
 
         //Metodo para irse al perfil
@@ -123,13 +147,9 @@ public class TaskActivity extends AppCompatActivity {
                 // Crear un nuevo intent
                 Intent intent = new Intent(TaskActivity.this, ProfileActivity.class);
 
-                // Actualizar el último Pokémon después de iniciar la segunda actividad
-                User1.setLastPokemon(numeroAleatorio);
-                JsonHandler.updateJsonData(TaskActivity.this, User1);
                 // Iniciar la segunda actividad
-                Toast.makeText(TaskActivity.this, "El nuevo pokemon sera: " + User1.getLastPokemon(), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
-
+                Log.d("Perfil", "El pokemon es: "+ User1.getLastPokemon() + ".");
             }
         });
 
@@ -166,7 +186,6 @@ public class TaskActivity extends AppCompatActivity {
                         //guardar tarea
 
                         User1.addTarea(tarea);
-                        JsonHandler.updateJsonData(TaskActivity.this, User1);
                         JsonHandler.saveJsonData(TaskActivity.this,User1);
                         // Agregar el CheckBox al LinearLayout
                         linearLayout.addView(checkBox);
@@ -181,11 +200,20 @@ public class TaskActivity extends AppCompatActivity {
                                 if (isChecked) {
                                     // Obtengo el texto del CheckBox marcado
                                     String textoCheckBox = ((CheckBox) buttonView).getText().toString();
+                                    // Cargo la experiencia
+                                    User1.setExp(User1.getExp() + 10);
+                                    // Actualizo el texto de experiencia en el hilo principal
 
-                                    //Elimino la tarea de mi User
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            experience.setText(User1.getExp() + " / 100 exp");
+                                            progressBar.setProgress(User1.getExp());
+                                        }
+                                    });
+                                    // Elimino la tarea de mi User
                                     User1.getTarea().remove(textoCheckBox);
-                                    JsonHandler.updateJsonData(TaskActivity.this, User1);
-                                    JsonHandler.saveJsonData(TaskActivity.this,User1);
+                                    JsonHandler.saveJsonData(TaskActivity.this, User1);
                                     // Elimino el CheckBox del LinearLayout y de la lista
                                     linearLayout.removeView(buttonView);
                                     checkBoxList.remove(buttonView);
@@ -221,6 +249,16 @@ public class TaskActivity extends AppCompatActivity {
 
 
 
+    }
+    protected void onPause() {
+        super.onPause();
+
+        JsonHandler.saveJsonData(this, User1);
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        JsonHandler.saveJsonData(this, User1);
     }
 
     }

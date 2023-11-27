@@ -1,8 +1,10 @@
 package com.example.poke_organizer;
 
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class UserData {
+public class UserData  {
 
     private String nombre;
     private String mail;
@@ -37,6 +39,10 @@ public class UserData {
 
     public void setExp(int exp) {
         this.exp = exp;
+        if (this.exp >= 100) {
+            this.exp = 0;
+            this.lvl++;
+        }
     }
 
     public int getExp() {

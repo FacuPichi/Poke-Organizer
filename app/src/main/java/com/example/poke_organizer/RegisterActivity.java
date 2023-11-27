@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                     // Guardar y enviar a TaskActivity
                     UserData user = new UserData(nameText, emailText);
                     JsonHandler.saveJsonData(RegisterActivity.this, user);
-
+                    user.setLvl(1);
                     // Ir a TaskActivity
                     startActivity(new Intent(RegisterActivity.this, TaskActivity.class));
                     finish(); // Finalizar la actividad actual
