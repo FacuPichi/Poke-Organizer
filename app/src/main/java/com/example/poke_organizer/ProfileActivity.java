@@ -3,6 +3,8 @@ package com.example.poke_organizer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ProgressBar progressBar = findViewById(R.id.profileProgressBar);
+        TextView experience = findViewById(R.id.profileExp);
         TextView level = findViewById(R.id.nivelUsuario);
         TextView name = findViewById(R.id.nombreUsuario);
         UserData User = JsonHandler.loadJsonData(this);
@@ -72,7 +75,10 @@ public class ProfileActivity extends AppCompatActivity {
         new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
         progressBar.setIndeterminate(false);
         progressBar.setMax(100);
+        progressBar.bringToFront();
         progressBar.setProgress(User.getExp());
+        ColorStateList colorStateList = ColorStateList.valueOf(Color.YELLOW);
+        progressBar.setProgressTintList(colorStateList);
         tareas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Crear un nuevo intent
@@ -80,6 +86,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                 // Iniciar la segunda actividad
                 startActivity(intent);
+            }
+        });
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                experience.setText(User.getExp() +" /100 exp");
             }
         });
 

@@ -39,10 +39,6 @@ public class UserData  {
 
     public void setExp(int exp) {
         this.exp = exp;
-        if (this.exp >= 100) {
-            this.exp = 0;
-            this.lvl++;
-        }
     }
 
     public int getExp() {

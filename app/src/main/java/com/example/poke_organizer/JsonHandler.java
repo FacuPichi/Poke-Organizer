@@ -67,7 +67,7 @@ public class JsonHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(userData.getLvl()!= 1){
+        if(userData.getLvl()== 0){
             Log.d("JsonHandler", "No tiene nivel");
             userData.setLvl(1);
         }

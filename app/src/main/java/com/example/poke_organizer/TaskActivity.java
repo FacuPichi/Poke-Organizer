@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -88,8 +90,6 @@ public class TaskActivity extends AppCompatActivity {
             }
         }
 
-
-
         //inicialización y declaración de variables
         Random random = new Random();
         TextView pokename = findViewById(R.id.pokename);
@@ -121,6 +121,8 @@ public class TaskActivity extends AppCompatActivity {
         progressBar.setIndeterminate(false);
         progressBar.setMax(100);
         progressBar.setProgress(User1.getExp());
+        ColorStateList colorStateList = ColorStateList.valueOf(Color.YELLOW);
+        progressBar.setProgressTintList(colorStateList);
         agregar.setBackgroundColor(ContextCompat.getColor(this, R.color.ThemeColor));
         int numeroPokemon = User1.getLastPokemon();
         String relativeUrl = "pokemon/"+numeroPokemon+"/";
@@ -202,15 +204,36 @@ public class TaskActivity extends AppCompatActivity {
                                     String textoCheckBox = ((CheckBox) buttonView).getText().toString();
                                     // Cargo la experiencia
                                     User1.setExp(User1.getExp() + 10);
-                                    // Actualizo el texto de experiencia en el hilo principal
-
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            experience.setText(User1.getExp() + " / 100 exp");
-                                            progressBar.setProgress(User1.getExp());
-                                        }
-                                    });
+                                    // Si la experiencia es mayor o igual a 100, sube de nivel y cambia el Pokémon
+                                    if (User1.getExp() >= 100) {
+                                        User1.setExp(0); // Resta 100 de la experiencia
+                                        User1.setLvl(User1.getLvl() + 1); // Aumenta el nivel
+                                        int pokemonAleatorio = random.nextInt(max - min + 1) + min; // Genera un nuevo Pokémon
+                                        User1.setLastPokemon(pokemonAleatorio); // Cambia el Pokémon
+                                        String relativeUrl1 = "pokemon/" + pokemonAleatorio + "/"; // Actualiza la URL del Pokémon
+                                        Toast.makeText(TaskActivity.this, "¡Felicidades has subido de nivel! ¡haz descubierto un nuevo pokemon! ", Toast.LENGTH_SHORT).show();
+                                        level.setText("Nivel: " + User1.getLvl());
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                JsonHandler.saveJsonData(TaskActivity.this,User1);
+                                                User1.addPokemon(String.valueOf(pokemonAleatorio));
+                                                new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1); // Actualiza la vista del Pokémon
+                                                level.setText("Nivel: " + User1.getLvl()); // Actualiza la vista del nivel
+                                                experience.setText(User1.getExp() + " / 100 exp");
+                                                progressBar.setProgress(User1.getExp());
+                                            }
+                                        });
+                                    } else {
+                                        // Actualizo el texto de experiencia en el hilo principal
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                experience.setText(User1.getExp() + " / 100 exp");
+                                                progressBar.setProgress(User1.getExp());
+                                            }
+                                        });
+                                    }
                                     // Elimino la tarea de mi User
                                     User1.getTarea().remove(textoCheckBox);
                                     JsonHandler.saveJsonData(TaskActivity.this, User1);
@@ -226,6 +249,7 @@ public class TaskActivity extends AppCompatActivity {
                 // Mostrar el cuadro de diálogo
                 builder.show();
             }
+
         });
 
         //BOTON TESTIN DE LOGIN
