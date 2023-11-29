@@ -19,4 +19,7 @@
     <dimen name="scrollHeight">504dp</dimen>
     <dimen name="pokemonChangeWidth">43dp</dimen>
     <dimen name="pokemonChangeHeight">40dp</dimen>
+    <dimen name="titleSize">32sp</dimen>
+    <dimen name="pokenameSize">18sp</dimen>
+    <dimen name="levelSize">20sp</dimen>
 </resources>
