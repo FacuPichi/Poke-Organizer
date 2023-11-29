@@ -65,7 +65,8 @@ public class JsonHandler {
                 Log.d("JsonHandler", "El archivo " + FILE_NAME + " está vacío.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
+
         }
         if(userData.getLvl()== 0){
             Log.d("JsonHandler", "No tiene nivel");
