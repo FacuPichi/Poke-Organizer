@@ -1,7 +1,9 @@
 package com.example.poke_organizer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -48,9 +50,67 @@ public class ProfileActivity extends AppCompatActivity {
         TableRow tableRow = new TableRow(this);
 
         // Iterar sobre la lista de Pokémon
+        // Iterar sobre la lista de Pokémon
         for (int i = 0; i < pokedex.size(); i++) {
             // Crear una nueva imagen
             ImageView imageView = new ImageView(this);
+
+            // Ejecutar GetPokemonInfo para cargar la imagen del Pokémon
+            String relativeUrl = "pokemon/" + pokedex.get(i) + "/";
+
+            // Dentro de tu bucle for, después de crear la ImageView
+            int finalI = i;
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Crear un AlertDialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    builder.setTitle("¿Qué quieres hacer?");
+                    builder.setMessage("¿Quieres que este Pokémon pase a ser tu nuevo compañero o quieres ver sus estadísticas?");
+
+                    // Opción para hacer que el Pokémon sea el nuevo compañero
+                    // Opción para hacer que el Pokémon sea el nuevo compañero
+                    builder.setPositiveButton("Hacer compañero", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Cambiar el valor de lastPokemon
+                            User.setLastPokemon(Integer.parseInt(pokedex.get(finalI))); // Asume que los elementos de pokedex son los números de los Pokémon
+                            // Guardar los cambios en User
+                            JsonHandler.saveJsonData(ProfileActivity.this, User);
+
+                            // Actualizar la imagen y el nombre del Pokémon en la interfaz de usuario
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pokename.setText(pokedex.get(finalI)); // Asume que pokename es un TextView que muestra el nombre del Pokémon
+                                    new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl); // Asume que pokeSprite es un ImageView que muestra la imagen del Pokémon
+                                }
+                            });
+                        }
+                    });
+
+                    // Opción para ver las estadísticas del Pokémon
+                    builder.setNegativeButton("Ver estadísticas", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                // Crear un nuevo Intent para DetailActivity
+                                Intent intent = new Intent(ProfileActivity.this, DetailActivity.class);
+                                // Pasar la URL relativa del Pokémon a DetailActivity
+                                intent.putExtra("POKEMON_URL", relativeUrl);
+                                // Iniciar DetailActivity
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                // Mostrar el error en el log
+                                Log.e("ProfileActivity", "Error al iniciar DetailActivity", e);
+                            }
+                        }
+                    });
+
+                    // Mostrar el AlertDialog
+                    builder.show();
+                }
+            });
 
             // Añadir la imagen a la fila
             tableRow.addView(imageView);
@@ -59,8 +119,7 @@ public class ProfileActivity extends AppCompatActivity {
             TextView dummyTextView = new TextView(this); // TextView dummy, no se mostrará
             GetPokemonInfo getPokemonInfo = new GetPokemonInfo(dummyTextView, imageView);
 
-            // Ejecutar GetPokemonInfo para cargar la imagen del Pokémon
-            String relativeUrl = "pokemon/" + pokedex.get(i) + "/";
+            // Ejecutar GetPokemonInfo
             getPokemonInfo.execute(relativeUrl);
 
             // Si se ha alcanzado el número máximo de imágenes por fila o es el último Pokémon, añadir la fila al TableLayout

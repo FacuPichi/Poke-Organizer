@@ -65,6 +65,7 @@ public class JsonHandler {
                 Log.d("JsonHandler", "El archivo " + FILE_NAME + " está vacío.");
             }
         } catch (Exception e) {
+            Log.d("JsonHandler", "El archivo no existe.");
             return null;
 
         }

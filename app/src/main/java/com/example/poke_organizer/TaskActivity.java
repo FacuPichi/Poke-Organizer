@@ -103,10 +103,6 @@ public class TaskActivity extends AppCompatActivity {
         Button agregar = findViewById(R.id.agregar);
         int min = 1;
         int max = 1010;
-        //int numeroAleatorio = random.nextInt(max - min + 1) + min;
-        //String relativeUrl = "pokemon/"+numeroAleatorio+"/";
-        //new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
-        //termino la inicializacion
 
 
 

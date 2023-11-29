@@ -1,7 +1,10 @@
 package com.example.poke_organizer;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Handler;
@@ -59,5 +62,37 @@ public class GetPokemonInfo {
                 System.err.println("Error al realizar la solicitud a la API");
             }
         }).start(); // Inicia el hilo para ejecutar la solicitud en segundo plano
+    }
+
+    public void processStats(String relativeUrl, LinearLayout statsLinearLayout) {
+        new Thread(() -> {
+            APIClient apiClient = new APIClient();
+            String response = apiClient.sendGetRequest(relativeUrl);
+
+            if (response != null) {
+                try {
+                    JSONObject pokemonData = new JSONObject(response);
+                    JSONArray statsArray = pokemonData.getJSONArray("stats");
+
+                    for (int i = 0; i < statsArray.length(); i++) {
+                        JSONObject statObject = statsArray.getJSONObject(i);
+                        int baseStat = statObject.getInt("base_stat");
+                        int effort = statObject.getInt("effort");
+                        String name = statObject.getJSONObject("stat").getString("name");
+
+                        TextView statTextView = new TextView(pokenameTextView.getContext());
+                        statTextView.setText(name + ": " + baseStat + " (Effort: " + effort + ")");
+
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            statsLinearLayout.addView(statTextView);
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.err.println("Error al realizar la solicitud a la API");
+            }
+        }).start();
     }
 }
