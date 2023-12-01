@@ -7,22 +7,22 @@
     android:background="@drawable/navbar"
     tools:context=".DetailActivity">
 
+
     <TextView
         android:id="@+id/subtitulo"
-        android:layout_width="95dp"
-        android:layout_height="42dp"
+        android:layout_width="109dp"
+        android:layout_height="70dp"
         android:fontFamily="@font/roboto_bold"
         android:padding="@dimen/pokenamePadding"
         android:text="@string/perfil_title"
-        android:textSize="18sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/pokeBackground2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title2"
-        app:layout_constraintVertical_bias="0.392"
+        app:layout_constraintVertical_bias="0.774"
         tools:ignore="VisualLintOverlap" />
-
 
     <TextView
         android:id="@+id/pokename2"
@@ -38,6 +38,23 @@
         app:layout_constraintTop_toBottomOf="@+id/pokeBackground2"
         tools:ignore="VisualLintOverlap" />
 
+    <TextView
+        android:id="@+id/pagina2"
+        android:layout_width="89dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="@dimen/pokenamePadding"
+        android:text="@string/tareas"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tareas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title2"
+        app:layout_constraintVertical_bias="0.793"
+        tools:ignore="VisualLintOverlap" />
+
     <Button
         android:id="@+id/tareas"
         android:layout_width="52dp"
@@ -49,64 +66,21 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/botona"
         app:layout_constraintTop_toTopOf="@+id/botona"
-        app:layout_constraintVertical_bias="0.393"
+        app:layout_constraintVertical_bias="0.833"
         tools:ignore="TouchTargetSizeCheck,TextSizeCheck,DuplicateSpeakableTextCheck,TextContrastCheck" />
-
-    <TextView
-        android:id="@+id/pagina2"
-        android:layout_width="89dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/roboto_bold"
-        android:padding="@dimen/pokenamePadding"
-        android:text="@string/tareas"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tareas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.021"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title2"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="VisualLintOverlap" />
 
     <ImageView
         android:id="@+id/botona"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="28dp"
         android:contentDescription="@string/pantalla_pokedex"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toStartOf="@+id/pokeBackground2"
         app:layout_constraintTop_toBottomOf="@+id/title2"
         app:srcCompat="@drawable/boton_a"
         tools:ignore="ImageContrastCheck" />
-
-    <Button
-        android:id="@+id/perfil2"
-        android:layout_width="52dp"
-        android:layout_height="49dp"
-        android:alpha="0.1"
-        android:text="@string/perfil"
-        app:layout_constraintBottom_toBottomOf="@+id/botonb"
-        app:layout_constraintEnd_toEndOf="@+id/botonb"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/botonb"
-        app:layout_constraintTop_toTopOf="@+id/botonb"
-        app:layout_constraintVertical_bias="0.393"
-        tools:ignore="TouchTargetSizeCheck,TextSizeCheck,TextContrastCheck" />
-
-    <ImageView
-        android:id="@+id/botonb"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="212dp"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="@string/pantalla_pokedex"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/pokeBackground2"
-        app:layout_constraintTop_toBottomOf="@+id/title2"
-        app:srcCompat="@drawable/boton_b" />
 
     <TextView
         android:id="@+id/title2"
@@ -161,16 +135,42 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/botonb"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintHorizontal_bias="0.032"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botona"
+        app:layout_constraintVertical_bias="0.798"
         tools:ignore="VisualLintOverlap" />
+
+    <Button
+        android:id="@+id/perfil2"
+        android:layout_width="52dp"
+        android:layout_height="49dp"
+        android:alpha="0.1"
+        android:text="@string/perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/botonb"
+        app:layout_constraintEnd_toEndOf="@+id/botonb"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/botonb"
+        app:layout_constraintTop_toTopOf="@+id/botonb"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="TouchTargetSizeCheck,TextSizeCheck,TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/botonb"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="296dp"
+        android:layout_marginEnd="28dp"
+        android:contentDescription="@string/pantalla_pokedex"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/pokeBackground2"
+        app:layout_constraintTop_toBottomOf="@+id/title2"
+        app:srcCompat="@drawable/boton_b" />
 
     <LinearLayout
         android:id="@+id/linearLayType"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@drawable/linealbackgroud"
+        android:layout_width="409dp"
+        android:layout_height="46dp"
         android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
@@ -178,7 +178,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pokename2"
-        app:layout_constraintVertical_bias="0.211"></LinearLayout>
+        app:layout_constraintVertical_bias="0.211">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayStats"

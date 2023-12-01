@@ -8,7 +8,7 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.view.Gravity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -132,29 +132,37 @@ public class GetPokemonInfo {
         new Thread(() -> {
             APIClient apiClient = new APIClient();
             String response = apiClient.sendGetRequest(relativeUrl);
+            int widthDp = 120; // Ancho en dp
+            int heightDp = 25; // Alto en dp
 
             if (response != null) {
                 try {
                     JSONObject pokemonData = new JSONObject(response);
                     JSONArray typesArray = pokemonData.getJSONArray("types");
 
-                    LinearLayout containerLinearLayout = new LinearLayout(pokenameTextView.getContext());
-                    containerLinearLayout.setOrientation(LinearLayout.VERTICAL);
-                    containerLinearLayout.setBackground(ContextCompat.getDrawable(pokenameTextView.getContext(), R.drawable.rounded_red_background)); // Establece el fondo del contenedor
-
                     for (int i = 0; i < typesArray.length(); i++) {
                         JSONObject typeObject = typesArray.getJSONObject(i);
                         String name = typeObject.getJSONObject("type").getString("name");
 
                         TextView typeTextView = new TextView(pokenameTextView.getContext());
+
                         typeTextView.setText("Type: " + name);
+                        typeTextView.setBackground(ContextCompat.getDrawable(pokenameTextView.getContext(), R.drawable.rounded_red_background)); // Establece el fondo del TextView a redondeado y rojo
+                        typeTextView.setGravity(Gravity.CENTER); // Centra el texto dentro del TextView
 
-                        containerLinearLayout.addView(typeTextView);
+                        Typeface typeface = ResourcesCompat.getFont(pokenameTextView.getContext(), R.font.roboto_bold);
+                        typeTextView.setTypeface(typeface); // Establece la fuente a Roboto Bold
+
+                        int widthPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthDp, pokenameTextView.getContext().getResources().getDisplayMetrics());
+                        int heightPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightDp, pokenameTextView.getContext().getResources().getDisplayMetrics());
+
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(widthPx, heightPx);
+                        typeTextView.setLayoutParams(layoutParams);
+
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            parentLinearLayout.addView(typeTextView);
+                        });
                     }
-
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        parentLinearLayout.addView(containerLinearLayout);
-                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -163,4 +171,5 @@ public class GetPokemonInfo {
             }
         }).start();
     }
+
 }
