@@ -66,8 +66,8 @@ public class JsonHandler {
             }
         } catch (Exception e) {
             Log.d("JsonHandler", "El archivo no existe.");
+            e.printStackTrace();
             return null;
-
         }
         if(userData.getLvl()== 0){
             Log.d("JsonHandler", "No tiene nivel");

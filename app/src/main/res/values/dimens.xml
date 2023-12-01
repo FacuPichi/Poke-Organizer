@@ -20,4 +20,15 @@
     <dimen name="pokemonChangeWidth">43dp</dimen>
     <dimen name="pokemonChangeHeight">40dp</dimen>
     <dimen name="dimension_titulo">32sp</dimen>
+    <dimen name="titleSize">32sp</dimen>
+    <dimen name="pokenameSize">18sp</dimen>
+    <dimen name="levelSize">20sp</dimen>
+    <dimen name="expSize">14sp</dimen>
+    <dimen name="profileExpSize">14sp</dimen>
+    <dimen name="pokename2Size">18sp</dimen>
+    <dimen name="pageNameSize">18sp</dimen>
+    <dimen name="title2Size">32sp</dimen>
+    <dimen name="paginaSize">18sp</dimen>
+    <dimen name="nivelUsuarioSize">22sp</dimen>
+    <dimen name="nombreUsuarioSize">25sp</dimen>
 </resources>
