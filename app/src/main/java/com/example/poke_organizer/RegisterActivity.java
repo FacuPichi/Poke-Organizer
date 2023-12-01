@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class RegisterActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,9 @@ public class RegisterActivity extends AppCompatActivity {
         EditText email = findViewById(R.id.editTextEmail);
         EditText emailconf = findViewById(R.id.editTextEmail2);
         Button register = findViewById(R.id.register);
+        int min = 1;
+        int max = 1010;
+        Random random = new Random();
 
         register.setBackgroundColor(ContextCompat.getColor(this, R.color.ThemeColorDark));
         register.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     // Guardar y enviar a TaskActivity
                     UserData user = new UserData(nameText, emailText);
+                    final int pokemonAleatorio = random.nextInt(max - min + 1) + min;
+                    user.setLastPokemon(pokemonAleatorio);
+                    user.addPokemon(String.valueOf(pokemonAleatorio));
                     JsonHandler.saveJsonData(RegisterActivity.this, user);
                     user.setLvl(1);
                     // Ir a TaskActivity
