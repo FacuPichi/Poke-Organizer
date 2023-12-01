@@ -8,6 +8,22 @@
     tools:context=".TaskActivity"
     tools:ignore="ExtraText">
 
+    <TextView
+        android:id="@+id/pagina4"
+        android:layout_width="64dp"
+        android:layout_height="47dp"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="@dimen/pokenamePadding"
+        android:text="Login"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Botonb"
+        app:layout_constraintEnd_toStartOf="@+id/perfil"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemonChange"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="VisualLintOverlap" />
+
     <Button
         android:id="@+id/pokemonChange"
         android:layout_width="@dimen/pokemonChangeWidth"
@@ -237,5 +253,18 @@
                 app:icon="@drawable/cruceta" />
         </LinearLayout>
     </ScrollView>
+    <ImageView
+        android:id="@+id/footer"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:contentDescription="@string/barra_divisora"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll"
+        app:srcCompat="@drawable/footertasks"
+        tools:ignore="ImageContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

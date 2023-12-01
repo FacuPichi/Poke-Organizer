@@ -54,8 +54,8 @@
 
     <TextView
         android:id="@+id/pagina2"
-        android:layout_width="83dp"
-        android:layout_height="39dp"
+        android:layout_width="89dp"
+        android:layout_height="38dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto_bold"
         android:padding="@dimen/pokenamePadding"
@@ -79,7 +79,8 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toStartOf="@+id/pokeBackground2"
         app:layout_constraintTop_toBottomOf="@+id/title2"
-        app:srcCompat="@drawable/boton_a" />
+        app:srcCompat="@drawable/boton_a"
+        tools:ignore="ImageContrastCheck" />
 
     <Button
         android:id="@+id/perfil2"
@@ -166,14 +167,31 @@
         tools:ignore="VisualLintOverlap" />
 
     <LinearLayout
-        android:id="@+id/linearLay"
+        android:id="@+id/linearLayType"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/linealbackgroud"
         android:baselineAligned="false"
         android:gravity="center"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pokename2">
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokename2"
+        app:layout_constraintVertical_bias="0.211"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayStats"
+        android:layout_width="414dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="141dp"
+        android:background="@drawable/linealbackgroud"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokename2"
+        app:layout_constraintVertical_bias="0.125"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

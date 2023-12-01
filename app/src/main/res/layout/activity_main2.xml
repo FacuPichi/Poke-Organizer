@@ -8,6 +8,23 @@
     tools:context=".ProfileActivity">
 
     <TextView
+        android:id="@+id/pagina5"
+        android:layout_width="130dp"
+        android:layout_height="95dp"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="@dimen/pokenamePadding"
+        android:text="Proxima-
+        mente Minijuego"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/divideBar2"
+        app:layout_constraintEnd_toStartOf="@+id/tareas"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title2"
+        app:layout_constraintVertical_bias="0.763"
+        tools:ignore="VisualLintOverlap" />
+
+    <TextView
         android:id="@+id/profileExp"
         android:layout_width="88dp"
         android:layout_height="29dp"

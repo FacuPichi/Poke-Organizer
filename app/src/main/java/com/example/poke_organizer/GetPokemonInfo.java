@@ -1,5 +1,10 @@
 package com.example.poke_organizer;
 
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,6 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Handler;
 import android.os.Looper;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
 import com.squareup.picasso.Picasso;
 
 public class GetPokemonInfo {
@@ -64,7 +73,7 @@ public class GetPokemonInfo {
         }).start(); // Inicia el hilo para ejecutar la solicitud en segundo plano
     }
 
-    public void processStats(String relativeUrl, LinearLayout statsLinearLayout) {
+    public void processStats(String relativeUrl, LinearLayout parentLinearLayout) {
         new Thread(() -> {
             APIClient apiClient = new APIClient();
             String response = apiClient.sendGetRequest(relativeUrl);
@@ -74,19 +83,78 @@ public class GetPokemonInfo {
                     JSONObject pokemonData = new JSONObject(response);
                     JSONArray statsArray = pokemonData.getJSONArray("stats");
 
+                    LinearLayout  containerLinearLayout1 = new LinearLayout(pokenameTextView.getContext());
+                    containerLinearLayout1.setOrientation(LinearLayout.VERTICAL);
+                    containerLinearLayout1.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+
+                    LinearLayout containerLinearLayout2 = new LinearLayout(pokenameTextView.getContext());
+                    containerLinearLayout2.setOrientation(LinearLayout.VERTICAL);
+                    containerLinearLayout2.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+
                     for (int i = 0; i < statsArray.length(); i++) {
                         JSONObject statObject = statsArray.getJSONObject(i);
                         int baseStat = statObject.getInt("base_stat");
-                        int effort = statObject.getInt("effort");
                         String name = statObject.getJSONObject("stat").getString("name");
 
                         TextView statTextView = new TextView(pokenameTextView.getContext());
-                        statTextView.setText(name + ": " + baseStat + " (Effort: " + effort + ")");
+                        statTextView.setText(name + ": " + baseStat);
+                        statTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18); // Establece el tamaño del texto a 18dp
+                        Typeface typeface = ResourcesCompat.getFont(pokenameTextView.getContext(), R.font.roboto_bold);
+                        statTextView.setTypeface(typeface);
+                        Drawable drawable = ContextCompat.getDrawable(pokenameTextView.getContext(), R.drawable.triangulo);
+                        if (drawable != null) {
+                            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                            Drawable scaledDrawable = new BitmapDrawable(pokenameTextView.getResources(), Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() / 3, bitmap.getHeight() / 3, true));
+                            statTextView.setCompoundDrawablesWithIntrinsicBounds(scaledDrawable, null, null, null);
+                        }
 
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            statsLinearLayout.addView(statTextView);
-                        });
+                        // Agrega las primeras 3 estadísticas a containerLinearLayout1 y las siguientes a containerLinearLayout2
+                        if (i < 3) {
+                            containerLinearLayout1.addView(statTextView);
+                        } else {
+                            containerLinearLayout2.addView(statTextView);
+                        }
                     }
+
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        parentLinearLayout.addView(containerLinearLayout1);
+                        parentLinearLayout.addView(containerLinearLayout2);
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.err.println("Error al realizar la solicitud a la API");
+            }
+        }).start();
+    }
+    public void processTypes(String relativeUrl, LinearLayout parentLinearLayout) {
+        new Thread(() -> {
+            APIClient apiClient = new APIClient();
+            String response = apiClient.sendGetRequest(relativeUrl);
+
+            if (response != null) {
+                try {
+                    JSONObject pokemonData = new JSONObject(response);
+                    JSONArray typesArray = pokemonData.getJSONArray("types");
+
+                    LinearLayout containerLinearLayout = new LinearLayout(pokenameTextView.getContext());
+                    containerLinearLayout.setOrientation(LinearLayout.VERTICAL);
+                    containerLinearLayout.setBackground(ContextCompat.getDrawable(pokenameTextView.getContext(), R.drawable.rounded_red_background)); // Establece el fondo del contenedor
+
+                    for (int i = 0; i < typesArray.length(); i++) {
+                        JSONObject typeObject = typesArray.getJSONObject(i);
+                        String name = typeObject.getJSONObject("type").getString("name");
+
+                        TextView typeTextView = new TextView(pokenameTextView.getContext());
+                        typeTextView.setText("Type: " + name);
+
+                        containerLinearLayout.addView(typeTextView);
+                    }
+
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        parentLinearLayout.addView(containerLinearLayout);
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

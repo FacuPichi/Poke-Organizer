@@ -29,9 +29,10 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView pokeSprite = findViewById(R.id.PokeSprite);
         TextView pokename = findViewById(R.id.pokename2);
-
-        LinearLayout statsLinearLayout = findViewById(R.id.linearLay);
-
+        LinearLayout statsLinearLayout = findViewById(R.id.linearLayStats);
+        LinearLayout typesLinearLayout = findViewById(R.id.linearLayType);
+        Button perfil = findViewById(R.id.perfil2);
+        Button tareas = findViewById(R.id.tareas);
         // Obtener el Intent que inició esta actividad
         Intent intent = getIntent();
 
@@ -42,6 +43,33 @@ public class DetailActivity extends AppCompatActivity {
         getPokemonInfo.execute(relativeUrl);
 
         getPokemonInfo.processStats(relativeUrl, statsLinearLayout);
+
+
+        GetPokemonInfo getPokemonInfoTypes = new GetPokemonInfo(pokename, pokeSprite);
+        getPokemonInfoTypes.processTypes(relativeUrl, typesLinearLayout);
+
+
+
+        perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear un nuevo intent
+                Intent intent = new Intent(DetailActivity.this, ProfileActivity.class);
+
+                // Iniciar la segunda actividad
+                startActivity(intent);
+            }
+        });
+
+        tareas.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Crear un nuevo intent
+                Intent intent = new Intent(DetailActivity.this, TaskActivity.class);
+
+                // Iniciar la segunda actividad
+                startActivity(intent);
+            }
+        });
     }
 
 }

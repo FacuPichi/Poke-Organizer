@@ -181,15 +181,21 @@ public class TaskActivity extends AppCompatActivity {
                         // Crear un nuevo CheckBox con el texto de la tarea
                         CheckBox checkBox = new CheckBox(TaskActivity.this);
                         checkBox.setText(tarea);
-                        //guardar tarea
 
-                        User1.addTarea(tarea);
-                        JsonHandler.saveJsonData(TaskActivity.this,User1);
-                        // Agregar el CheckBox al LinearLayout
-                        linearLayout.addView(checkBox);
+                        if (tarea.isEmpty()) {
+                            // Mostrar un Toast indicando que no se puede agregar una tarea vacía
+                            Toast.makeText(TaskActivity.this, "No se puede agregar una tarea vacía. Por favor, inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            User1.addTarea(tarea);
+                            //Guardar tarea
+                            JsonHandler.saveJsonData(TaskActivity.this,User1);
+                            // Agregar el CheckBox al LinearLayout
+                            linearLayout.addView(checkBox);
 
-                        // Agregar el CheckBox a la lista
-                        checkBoxList.add(checkBox);
+                            // Agregar el CheckBox a la lista
+                            checkBoxList.add(checkBox);
+                        }
+
 
                         // Agregar un listener al CheckBox para detectar el cambio de estado
                         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -248,7 +254,7 @@ public class TaskActivity extends AppCompatActivity {
 
         });
 
-        //BOTON TESTIN DE LOGIN
+        //BOTON PARA EL TESTING DEL LOGIN, ¡PROXIMAMENTE LLEVARA AL MINIJUEGO!
 
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
