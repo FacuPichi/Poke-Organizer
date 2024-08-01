@@ -15,6 +15,7 @@
         android:fontFamily="@font/roboto_bold"
         android:padding="@dimen/pokenamePadding"
         android:text="@string/estadisticas"
+        android:textColor="@color/levelColor"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/pokeBackground2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,12 +32,30 @@
         android:fontFamily="@font/roboto_bold"
         android:padding="@dimen/pokenamePadding"
         android:text="@string/nombre_pokemon"
+        android:textColor="@color/levelColor"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.591"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pokeBackground2"
         tools:ignore="VisualLintOverlap" />
+
+    <ImageView
+        android:id="@+id/botona"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="28dp"
+        android:contentDescription="@string/pantalla_pokedex"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/perfil2"
+        app:layout_constraintEnd_toStartOf="@+id/pokeBackground2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title2"
+        app:layout_constraintVertical_bias="0.517"
+        app:srcCompat="@drawable/boton_a"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/pagina2"
@@ -46,13 +65,14 @@
         android:fontFamily="@font/roboto_bold"
         android:padding="@dimen/pokenamePadding"
         android:text="@string/tareas"
+        android:textColor="@color/levelColor"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tareas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title2"
-        app:layout_constraintVertical_bias="0.793"
+        app:layout_constraintVertical_bias="0.807"
         tools:ignore="VisualLintOverlap" />
 
     <Button
@@ -66,21 +86,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/botona"
         app:layout_constraintTop_toTopOf="@+id/botona"
-        app:layout_constraintVertical_bias="0.833"
         tools:ignore="TouchTargetSizeCheck,TextSizeCheck,DuplicateSpeakableTextCheck,TextContrastCheck" />
-
-    <ImageView
-        android:id="@+id/botona"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="28dp"
-        android:contentDescription="@string/pantalla_pokedex"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/pokeBackground2"
-        app:layout_constraintTop_toBottomOf="@+id/title2"
-        app:srcCompat="@drawable/boton_a"
-        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/title2"
@@ -132,6 +138,7 @@
         android:fontFamily="@font/roboto_bold"
         android:padding="@dimen/pokenamePadding"
         android:text="@string/perfil_title"
+        android:textColor="@color/levelColor"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/botonb"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,8 +170,12 @@
         android:layout_marginEnd="28dp"
         android:contentDescription="@string/pantalla_pokedex"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/pokename2"
         app:layout_constraintEnd_toStartOf="@+id/pokeBackground2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title2"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/boton_b" />
 
     <LinearLayout

@@ -98,9 +98,14 @@ public class GetPokemonInfo {
 
                         TextView statTextView = new TextView(pokenameTextView.getContext());
                         statTextView.setText(name + ": " + baseStat);
-                        statTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18); // Establece el tamaño del texto a 18dp
+
+                        // Aplica el color de texto negro
+                        statTextView.setTextColor(ContextCompat.getColor(pokenameTextView.getContext(), android.R.color.black));
+
+                        statTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
                         Typeface typeface = ResourcesCompat.getFont(pokenameTextView.getContext(), R.font.roboto_bold);
                         statTextView.setTypeface(typeface);
+
                         Drawable drawable = ContextCompat.getDrawable(pokenameTextView.getContext(), R.drawable.triangulo);
                         if (drawable != null) {
                             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
@@ -147,11 +152,15 @@ public class GetPokemonInfo {
                         TextView typeTextView = new TextView(pokenameTextView.getContext());
 
                         typeTextView.setText("Type: " + name);
-                        typeTextView.setBackground(ContextCompat.getDrawable(pokenameTextView.getContext(), R.drawable.rounded_red_background)); // Establece el fondo del TextView a redondeado y rojo
-                        typeTextView.setGravity(Gravity.CENTER); // Centra el texto dentro del TextView
+
+                        // Aplica el color de texto negro
+                        typeTextView.setTextColor(ContextCompat.getColor(pokenameTextView.getContext(), android.R.color.black));
+
+                        typeTextView.setBackground(ContextCompat.getDrawable(pokenameTextView.getContext(), R.drawable.rounded_red_background));
+                        typeTextView.setGravity(Gravity.CENTER);
 
                         Typeface typeface = ResourcesCompat.getFont(pokenameTextView.getContext(), R.font.roboto_bold);
-                        typeTextView.setTypeface(typeface); // Establece la fuente a Roboto Bold
+                        typeTextView.setTypeface(typeface);
 
                         int widthPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthDp, pokenameTextView.getContext().getResources().getDisplayMetrics());
                         int heightPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightDp, pokenameTextView.getContext().getResources().getDisplayMetrics());

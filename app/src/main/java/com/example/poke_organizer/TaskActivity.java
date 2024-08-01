@@ -163,6 +163,7 @@ public class TaskActivity extends AppCompatActivity {
 
                 // Agregar un campo de texto para la tarea
                 final EditText input = new EditText(TaskActivity.this);
+                input.setTextColor(Color.BLACK); // Establece el color del texto en negro
                 builder.setView(input);
 
                 // Agregar botones "Cancelar" y "Aceptar"
@@ -188,9 +189,12 @@ public class TaskActivity extends AppCompatActivity {
                         } else {
                             User1.addTarea(tarea);
                             //Guardar tarea
-                            JsonHandler.saveJsonData(TaskActivity.this,User1);
+                            JsonHandler.saveJsonData(TaskActivity.this, User1);
                             // Agregar el CheckBox al LinearLayout
                             linearLayout.addView(checkBox);
+
+                            // Aplica el estilo personalizado al CheckBox
+                            checkBox.setButtonTintList(ColorStateList.valueOf(Color.BLACK));
 
                             // Agregar el CheckBox a la lista
                             checkBoxList.add(checkBox);
