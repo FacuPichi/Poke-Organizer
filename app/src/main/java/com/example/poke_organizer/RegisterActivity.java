@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         Random random = new Random();
         ActionCodeSettings actionCodeSettings =
                 ActionCodeSettings.newBuilder()
-                        .setUrl("https://pokeorganizer.page.link/")
+                        .setUrl("https://pokeorganizer.page.link")
                         .setHandleCodeInApp(true)
                         .setAndroidPackageName(
                                 "com.example.poke_organizer",
