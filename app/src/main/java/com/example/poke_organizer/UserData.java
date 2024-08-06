@@ -25,7 +25,7 @@ public class UserData  {
         return nombre;
     }
 
-    public String getMail() {
+    public String getEmail() {
         return mail;
     }
 
@@ -55,6 +55,10 @@ public class UserData  {
 
     public ArrayList<String> getPokedex() {
         return pokedex;
+    }
+
+    public void setPokedex(ArrayList<String> pokedex) {
+        this.pokedex = pokedex;
     }
 
     public void addPokemon(String pokemon) {
