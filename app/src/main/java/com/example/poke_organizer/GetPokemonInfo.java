@@ -68,7 +68,7 @@ public class GetPokemonInfo {
                 }
             } else {
                 // Maneja el caso de respuesta nula
-                System.err.println("Error al realizar la solicitud a la API");
+                System.err.println("Error al realizar la solicitud a la API la solicitud fue:" + response);
             }
         }).start(); // Inicia el hilo para ejecutar la solicitud en segundo plano
     }

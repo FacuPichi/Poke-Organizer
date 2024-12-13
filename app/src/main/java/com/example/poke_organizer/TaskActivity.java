@@ -17,16 +17,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class TaskActivity extends AppCompatActivity {
 
 
+    // Declarar Firestore
+    private FirebaseFirestore firestore;
+    private DocumentReference userRef;
     private List<CheckBox> checkBoxList = new ArrayList<>();
     private UserData User1; // Declarar la variable aquí
     @Override
@@ -35,6 +43,16 @@ public class TaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         User1 = JsonHandler.loadJsonData(this);
+
+        // Inicializa Firestore
+        firestore = FirebaseFirestore.getInstance();
+
+        // Obtiene el ID del usuario de la base de datos de Firebase Auth
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Obtiene una referencia al documento del usuario en Firestore
+        userRef = firestore.collection("users").document(userId);
+
 
         if (User1 == null ) {
             // Redirigir al usuario a RegisterActivity
@@ -125,9 +143,14 @@ public class TaskActivity extends AppCompatActivity {
         pokemonChange.setOnClickListener(view -> {
             final int pokemonAleatorio = random.nextInt(max - min + 1) + min;
             User1.setLastPokemon(pokemonAleatorio);
-            JsonHandler.saveJsonData(TaskActivity.this,User1);
-            String relativeUrl1 = "pokemon/" + pokemonAleatorio + "/";
             User1.addPokemon(String.valueOf(pokemonAleatorio));
+            User1.setLvl(User1.getLvl() + 1); // Subir nivel como ejemplo
+            JsonHandler.saveJsonData(TaskActivity.this, User1);
+
+            // Actualizar el perfil en Firestore
+            updateUserProfileInFirestore(User1);
+
+            String relativeUrl1 = "pokemon/" + pokemonAleatorio + "/";
             new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1);
             Toast.makeText(this, "Cambio de Pokémon: " + pokemonAleatorio, Toast.LENGTH_SHORT).show();
         });
@@ -270,10 +293,30 @@ public class TaskActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
+
+    private void updateUserProfileInFirestore(UserData user1) {
+        // Crear un mapa con los datos que quieres actualizar
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("name", user1.getNombre());
+        userMap.put("email", user1.getEmail());
+        userMap.put("level", user1.getLvl());
+        userMap.put("experience", user1.getExp());
+        userMap.put("lastPokemon", user1.getLastPokemon());
+        userMap.put("pokemonList", user1.getPokedex()); // Asegúrate de que getPokemonList() devuelva la lista de Pokémon
+
+        // Actualizar el documento del usuario en Firestore
+        userRef.set(userMap)
+                .addOnSuccessListener(aVoid -> {
+                    // La actualización fue exitosa
+                    Log.d("Firestore", "Perfil de usuario actualizado correctamente");
+                })
+                .addOnFailureListener(e -> {
+                    // Hubo un error al actualizar el perfil
+                    Log.e("Firestore", "Error al actualizar el perfil de usuario", e);
+                });
+    }
+
     protected void onPause() {
         super.onPause();
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -63,58 +64,62 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Autenticación con Firebase (correo y contraseña)
-        db.collection("users")
-                .whereEqualTo("email", emailText)  // Buscar por email
-                .get()
+        // Autenticación con FirebaseAuth (correo y contraseña)
+        auth.signInWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String storedPassword = document.getString("password");
+                    if (task.isSuccessful()) {
+                        // Login exitoso con Firebase Authentication
+                        FirebaseUser user = auth.getCurrentUser();
+                        if (user != null) {
+                            // Obtener UID
+                            String uid = user.getUid();
 
-                            if (passwordText.equals(storedPassword)) {
-                                // Login exitoso
-                                Log.d("Login", "Usuario autenticado con Firestore");
+                            // Obtener datos del usuario desde Firestore usando el UID
+                            db.collection("users")
+                                    .document(uid)  // Obtener el documento del usuario por su UID
+                                    .get()
+                                    .addOnCompleteListener(task1 -> {
+                                        if (task1.isSuccessful()) {
+                                            DocumentSnapshot document = task1.getResult();
+                                            // Extraer datos del documento
+                                            String nombre = document.getString("nombre");
+                                            String email = document.getString("email");
 
-                                // Crear un objeto UserData con los datos obtenidos
-                                String nombre = document.getString("name");
-                                String email = document.getString("email");
-                                String password = document.getString("password");
+                                            // Extraer datos adicionales de usuario
+                                            int lvl = document.contains("level") ? document.getLong("level").intValue() : 1;
+                                            int exp = document.contains("experience") ? document.getLong("experience").intValue() : 0;
+                                            int lastPokemon = document.contains("lastPokemon") ? document.getLong("lastPokemon").intValue() : 0;
+                                            ArrayList<String> pokedex = (ArrayList<String>) document.get("pokedex"); // Puede ser null o vacío
+                                            if (pokedex == null) pokedex = new ArrayList<>();
+                                            ArrayList<String> tareas = (ArrayList<String>) document.get("tasks"); // Puede ser null o vacío
+                                            if (tareas == null) tareas = new ArrayList<>();
 
-                                // Inicializar los datos de nivel, experiencia y Pokémon
-                                int lvl = document.contains("level") ? document.getLong("level").intValue() : 1; // Default: 1 si no existe
-                                int exp = document.contains("experience") ? document.getLong("experience").intValue() : 0; // Default: 0 si no existe
-                                int lastPokemon = document.contains("lastPokemon") ? document.getLong("lastPokemon").intValue() : 0; // Default: 0 si no existe
-                                ArrayList<String> pokedex = (ArrayList<String>) document.get("pokedex"); // Puede ser null o vacío
-                                if (pokedex == null) pokedex = new ArrayList<>();
-                                ArrayList<String> tareas = (ArrayList<String>) document.get("tasks"); // Puede ser null o vacío
-                                if (tareas == null) tareas = new ArrayList<>();
+                                            // Crear el objeto UserData
+                                            UserData userData = new UserData(nombre, passwordText, email);
+                                            userData.setLvl(lvl);
+                                            userData.setExp(exp);
+                                            userData.setLastPokemon(lastPokemon);
+                                            userData.setPokedex(pokedex);
+                                            userData.setTarea(tareas);
 
-                                // Crear el objeto UserData
-                                UserData userData = new UserData(nombre, password, email);
-                                userData.setLvl(lvl);
-                                userData.setExp(exp);
-                                userData.setLastPokemon(lastPokemon);
-                                userData.setPokedex(pokedex);
-                                userData.setTarea(tareas);
+                                            // Guardar los datos del usuario en un archivo JSON
+                                            JsonHandler.saveJsonData(LoginActivity.this, userData);
 
-                                // Guardar el UserData en un archivo JSON utilizando tu función saveJsonData
-                                JsonHandler.saveJsonData(LoginActivity.this, userData);
-
-                                // Redirigir a la TaskActivity después de guardar los datos
-                                Intent intent = new Intent(LoginActivity.this, TaskActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                showToast("Contraseña incorrecta");
-                            }
+                                            // Redirigir a la TaskActivity
+                                            Intent intent = new Intent(LoginActivity.this, TaskActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            showToast("No se pudieron obtener los datos del usuario");
+                                        }
+                                    });
                         }
                     } else {
-                        showToast("Usuario no encontrado");
+                        showToast("Credenciales incorrectas");
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("Login", "Error al autenticar con Firestore: " + e.getMessage());
+                    Log.e("Login", "Error al autenticar: " + e.getMessage());
                     showToast("Error al autenticar, intente de nuevo");
                 });
     }
