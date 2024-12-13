@@ -8,14 +8,16 @@ public class UserData  {
 
     private String nombre;
     private String mail;
+    private String password;
     private int lvl;
     private int exp;
     private int lastPokemon;
     private ArrayList<String> pokedex;
     private ArrayList<String> tareas;
 
-    public UserData(String nombre, String   mail) {
+    public UserData(String nombre,String password, String   mail) {
         this.nombre = nombre;
+        this.password = password;
         this.mail = mail;
         this.pokedex = new ArrayList<String>();
         this.tareas = new ArrayList<String>();
@@ -23,6 +25,10 @@ public class UserData  {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {

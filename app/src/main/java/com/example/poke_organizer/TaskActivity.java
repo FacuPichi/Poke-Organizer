@@ -17,7 +17,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,6 +45,7 @@ public class TaskActivity extends AppCompatActivity {
             finish(); // Finalizar TaskActivity para que el usuario no pueda volver a ella con el botón de retroceso
             return; // Salir del método onCreate para evitar ejecutar el resto del código
         }
+
         // Verifico si hay tareas en User1
         ArrayList<String> tareas = User1.getTarea();
         if (tareas != null && !tareas.isEmpty()) {
@@ -104,9 +104,6 @@ public class TaskActivity extends AppCompatActivity {
         int min = 1;
         int max = 1010;
 
-
-
-
         // Llamada para generar el archivo JSON con datos dummy
         runOnUiThread(new Runnable() {
             @Override
@@ -125,7 +122,6 @@ public class TaskActivity extends AppCompatActivity {
         new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
         level.append(String.valueOf(User1.getLvl()));
         //termino la inicializacion
-
 
         //Metodo para cambiar a pokemon aleatorio
         pokemonChange.setOnClickListener(view -> {
