@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -61,23 +62,31 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Autenticación con Firebase (correo y contraseña)
-        auth.signInWithEmailAndPassword(emailText, passwordText)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Si el login es exitoso
-                        FirebaseUser user = auth.getCurrentUser();
-                        if (user != null) {
-                            Log.d("Login", "Usuario autenticado: " + user.getEmail());
-                            // Aquí puedes redirigir al usuario a otra actividad
-                            Intent intent = new Intent(LoginActivity.this, TaskActivity.class);  // Redirigir a la actividad principal
-                            startActivity(intent);
-                            finish();  // Cerrar el LoginActivity
+        db.collection("users")
+                .whereEqualTo("email", emailText)  // Buscar por email
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String storedPassword = document.getString("password");
+
+                            if (passwordText.equals(storedPassword)) {
+                                // Login exitoso
+                                Log.d("Login", "Usuario autenticado con Firestore");
+                                Intent intent = new Intent(LoginActivity.this, TaskActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                showToast("Contraseña incorrecta");
+                            }
                         }
                     } else {
-                        // Si hay un error en el login
-                        Log.e("Login", "Error al autenticar: " + task.getException().getMessage());
-                        Toast.makeText(this, "Error en el login, intente de nuevo", Toast.LENGTH_SHORT).show();
+                        showToast("Usuario no encontrado");
                     }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Login", "Error al autenticar con Firestore: " + e.getMessage());
+                    showToast("Error al autenticar, intente de nuevo");
                 });
     }
 

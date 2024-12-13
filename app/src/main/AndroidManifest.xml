@@ -26,8 +26,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <!-- here you write your dynamic link host and connection type -->
-                <!-- I wrote Youtube so when a youtube link clicked, my app will open-->
                 <data android:host="pokeorganizer.page.link" android:scheme="https"/>
             </intent-filter>
         </activity>
@@ -39,9 +37,14 @@
         <activity
             android:name=".RegisterActivity">
         </activity>
+
         <activity
-        android:name=".DetailActivity">
-    </activity>
+            android:name=".DetailActivity">
+        </activity>
+
+        <activity
+            android:name=".TaskActivity">
+        </activity>
 
 
         <meta-data
