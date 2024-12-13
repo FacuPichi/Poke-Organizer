@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -73,6 +75,33 @@ public class LoginActivity extends AppCompatActivity {
                             if (passwordText.equals(storedPassword)) {
                                 // Login exitoso
                                 Log.d("Login", "Usuario autenticado con Firestore");
+
+                                // Crear un objeto UserData con los datos obtenidos
+                                String nombre = document.getString("name");
+                                String email = document.getString("email");
+                                String password = document.getString("password");
+
+                                // Inicializar los datos de nivel, experiencia y Pokémon
+                                int lvl = document.contains("level") ? document.getLong("level").intValue() : 1; // Default: 1 si no existe
+                                int exp = document.contains("experience") ? document.getLong("experience").intValue() : 0; // Default: 0 si no existe
+                                int lastPokemon = document.contains("lastPokemon") ? document.getLong("lastPokemon").intValue() : 0; // Default: 0 si no existe
+                                ArrayList<String> pokedex = (ArrayList<String>) document.get("pokedex"); // Puede ser null o vacío
+                                if (pokedex == null) pokedex = new ArrayList<>();
+                                ArrayList<String> tareas = (ArrayList<String>) document.get("tasks"); // Puede ser null o vacío
+                                if (tareas == null) tareas = new ArrayList<>();
+
+                                // Crear el objeto UserData
+                                UserData userData = new UserData(nombre, password, email);
+                                userData.setLvl(lvl);
+                                userData.setExp(exp);
+                                userData.setLastPokemon(lastPokemon);
+                                userData.setPokedex(pokedex);
+                                userData.setTarea(tareas);
+
+                                // Guardar el UserData en un archivo JSON utilizando tu función saveJsonData
+                                JsonHandler.saveJsonData(LoginActivity.this, userData);
+
+                                // Redirigir a la TaskActivity después de guardar los datos
                                 Intent intent = new Intent(LoginActivity.this, TaskActivity.class);
                                 startActivity(intent);
                                 finish();

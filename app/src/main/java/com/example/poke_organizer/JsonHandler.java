@@ -1,15 +1,13 @@
 package com.example.poke_organizer;
+
 import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-
 public class JsonHandler {
 
     private static final String FILE_NAME = "user_data.json";
@@ -23,14 +21,15 @@ public class JsonHandler {
             FileOutputStream fileOutputStream = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonData.getBytes());
             fileOutputStream.close();
+
             Log.d("JsonHandlerSave", "Datos guardados correctamente en " + FILE_NAME);
-            Log.d("JsonHandlerSave", "Datos en UserData: " +
-                    "Nombre: " + userData.getNombre() +
-                    ", Nivel: " + userData.getLvl() +
-                    ", Experiencia: " + userData.getExp() +
-                    ", Último Pokémon: " + userData.getLastPokemon() +
-                    ", Pokedex: " + userData.getPokedex() +
-                    ", Tareas: " + userData.getTarea());
+          //  Log.d("JsonHandlerSave", "Datos en UserData: " +
+          //          "Nombre: " + userData.getNombre() +
+          //          ", Nivel: " + userData.getLvl() +
+          //          ", Experiencia: " + userData.getExp() +
+          //          ", Último Pokémon: " + userData.getLastPokemon() +
+          //          ", Pokedex: " + userData.getPokedex() +
+          //          ", Tareas: " + userData.getTarea());
         } catch (Exception e) {
             e.printStackTrace();
         }

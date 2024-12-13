@@ -3,7 +3,6 @@ package com.example.poke_organizer;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -30,7 +29,6 @@ public class TaskActivity extends AppCompatActivity {
 
     private List<CheckBox> checkBoxList = new ArrayList<>();
     private UserData User1; // Declarar la variable aquí
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
