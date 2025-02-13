@@ -18,6 +18,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 
@@ -73,21 +76,41 @@ public class ProfileActivity extends AppCompatActivity {
                     builder.setPositiveButton("Hacer compañero", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Cambiar el valor de lastPokemon
-                            User.setLastPokemon(Integer.parseInt(pokedex.get(finalI))); // Asume que los elementos de pokedex son los números de los Pokémon
-                            // Guardar los cambios en User
+                            int selectedPokemon = Integer.parseInt(pokedex.get(finalI)); // Obtiene el ID del Pokémon seleccionado
+                            User.setLastPokemon(selectedPokemon); // Actualiza el último Pokémon en la clase UserData
+
+                            // Guardar en Firestore Database
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            FirebaseAuth auth = FirebaseAuth.getInstance();
+                            String userEmail = auth.getCurrentUser().getEmail();
+
+                            if (userEmail != null) {
+                                db.collection("users")
+                                        .whereEqualTo("email", userEmail)
+                                        .get()
+                                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                                            if (!queryDocumentSnapshots.isEmpty()) {
+                                                String userId = queryDocumentSnapshots.getDocuments().get(0).getId(); // Obtiene el ID del documento
+                                                db.collection("users").document(userId)
+                                                        .update("lastPokemon", selectedPokemon)
+                                                        .addOnSuccessListener(aVoid -> Log.d("Firestore", "Compañero actualizado en Firestore"))
+                                                        .addOnFailureListener(e -> Log.e("Firestore", "Error al actualizar compañero", e));
+                                            }
+                                        })
+                                        .addOnFailureListener(e -> Log.e("Firestore", "Error al buscar usuario en Firestore", e));
+                            }
+
+                            // Guardar los cambios en almacenamiento local
                             JsonHandler.saveJsonData(ProfileActivity.this, User);
 
-                            // Actualizar la imagen y el nombre del Pokémon en la interfaz de usuario
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    pokename.setText(pokedex.get(finalI)); // Asume que pokename es un TextView que muestra el nombre del Pokémon
-                                    new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl); // Asume que pokeSprite es un ImageView que muestra la imagen del Pokémon
-                                }
+                            // Actualizar la interfaz de usuario
+                            runOnUiThread(() -> {
+                                pokename.setText(pokedex.get(finalI)); // Actualiza el nombre del Pokémon
+                                new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl); // Actualiza la imagen del Pokémon
                             });
                         }
                     });
+
 
                     // Opción para ver las estadísticas del Pokémon
                     builder.setNegativeButton("Ver estadísticas", new DialogInterface.OnClickListener() {

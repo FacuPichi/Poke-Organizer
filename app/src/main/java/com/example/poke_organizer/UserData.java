@@ -9,8 +9,8 @@ public class UserData  {
     private String nombre;
     private String mail;
     private String password;
-    private int lvl;
-    private int exp;
+    private int level;
+    private int experience;
     private int lastPokemon;
     private ArrayList<String> pokedex;
     private ArrayList<String> tareas;
@@ -69,10 +69,9 @@ public class UserData  {
 
     public void addPokemon(String pokemon) {
         if (this.pokedex == null) {
-            this.pokedex = new ArrayList<String>();
-            this.pokedex.add(pokemon);
+            this.pokedex = new ArrayList<String>(); // Inicializa la lista si es null
         }
-        this.pokedex.add(pokemon);
+        this.pokedex.add(pokemon); // Agrega el Pokémon a la lista
     }
 
     public ArrayList<String> getTarea() {
@@ -87,7 +86,6 @@ public class UserData  {
     public void addTarea(String tarea) {
         if (this.tareas == null) {
             this.tareas = new ArrayList<String>();
-            this.tareas.add(tarea);
         }
         this.tareas.add(tarea);
     }
