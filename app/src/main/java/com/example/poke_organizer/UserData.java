@@ -36,19 +36,19 @@ public class UserData  {
     }
 
     public int getLvl() {
-        return lvl;
+        return level;
     }
 
     public void setLvl(int lvl) {
-        this.lvl = lvl;
+        this.level = lvl;
     }
 
     public void setExp(int exp) {
-        this.exp = exp;
+        this.experience = exp;
     }
 
     public int getExp() {
-        return exp;
+        return experience;
     }
 
     public int getLastPokemon() {

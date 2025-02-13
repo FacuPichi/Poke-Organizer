@@ -163,7 +163,6 @@ public class TaskActivity extends AppCompatActivity {
             final int pokemonAleatorio = random.nextInt(max - min + 1) + min;
             User1.setLastPokemon(pokemonAleatorio);
             User1.addPokemon(String.valueOf(pokemonAleatorio)); // Agregar el Pokémon a la lista
-            User1.setLvl(User1.getLvl() + 1); // Subir nivel como ejemplo
             JsonHandler.saveJsonData(TaskActivity.this, User1); // Guardar localmente
 
             // Actualizar el perfil en Firestore
