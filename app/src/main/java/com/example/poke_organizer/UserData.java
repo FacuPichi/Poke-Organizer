@@ -1,13 +1,11 @@
 package com.example.poke_organizer;
 
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 
-public class UserData  {
+public class UserData {
 
     private String nombre;
-    private String mail;
+    private String email;
     private String password;
     private int level;
     private int experience;
@@ -15,40 +13,60 @@ public class UserData  {
     private ArrayList<String> pokedex;
     private ArrayList<String> tareas;
 
-    public UserData(String nombre,String password, String   mail) {
+    // Constructor con parámetros
+    public UserData(String nombre, String password, String email) {
         this.nombre = nombre;
         this.password = password;
-        this.mail = mail;
-        this.pokedex = new ArrayList<String>();
-        this.tareas = new ArrayList<String>();
+        this.email = email;
+        this.pokedex = new ArrayList<>();
+        this.tareas = new ArrayList<>();
     }
 
+    // Constructor vacío para Firestore
+    public UserData() {
+        this.pokedex = new ArrayList<>();
+        this.tareas = new ArrayList<>();
+    }
+
+    // Getters y setters
     public String getNombre() {
         return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getEmail() {
-        return mail;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getLvl() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLvl(int lvl) {
-        this.level = lvl;
+    public void setLevel(int level) {
+        this.level = level;
     }
 
-    public void setExp(int exp) {
-        this.experience = exp;
-    }
-
-    public int getExp() {
+    public int getExperience() {
         return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
     public int getLastPokemon() {
@@ -67,27 +85,33 @@ public class UserData  {
         this.pokedex = pokedex;
     }
 
-    public void addPokemon(String pokemon) {
-        if (this.pokedex == null) {
-            this.pokedex = new ArrayList<String>(); // Inicializa la lista si es null
-        }
-        this.pokedex.add(pokemon); // Agrega el Pokémon a la lista
-    }
-
-    public ArrayList<String> getTarea() {
+    public ArrayList<String> getTareas() {
         return tareas;
     }
 
-    public void setTarea(ArrayList<String> tarea){
-        this.tareas = tarea;
+    public void setTareas(ArrayList<String> tareas) {
+        this.tareas = tareas;
     }
 
+    // Métodos adicionales
+    public void addPokemon(String pokemon) {
+        if (this.pokedex == null) {
+            this.pokedex = new ArrayList<>();
+        }
+        this.pokedex.add(pokemon);
+    }
 
     public void addTarea(String tarea) {
         if (this.tareas == null) {
-            this.tareas = new ArrayList<String>();
+            this.tareas = new ArrayList<>();
         }
         this.tareas.add(tarea);
     }
 
+    public void removeTarea(String tarea) {
+        if (this.tareas != null && this.tareas.contains(tarea)) {
+            this.tareas.remove(tarea);
+
+        }
+    }
 }

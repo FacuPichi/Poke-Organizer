@@ -3,321 +3,326 @@ package com.example.poke_organizer;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import android.content.DialogInterface;
+
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.ProgressBar;
-import java.util.ArrayList;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import android.content.Intent;
-import android.view.View;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class TaskActivity extends AppCompatActivity {
 
     // Declarar Firestore
     private FirebaseFirestore firestore;
-    private List<CheckBox> checkBoxList = new ArrayList<>();
-    private UserData User1; // Declarar la variable aquí
+    private UserData User1; // Variable para almacenar los datos del usuario
+
+    // Declarar vistas
+    private TextView pokename, level, experience;
+    private ImageView pokeSprite;
+    private ProgressBar progressBar;
+    private Button pokemonChange, perfil, login, agregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initializeViews(); // Inicializar vistas
+        initializeFirestore(); // Inicializar Firestore
+        loadUserData(); // Cargar datos del usuario desde Firestore
+        setupPokemonChangeButton(); // Configurar botón de cambio de Pokémon
+        setupProfileButton(); // Configurar botón de perfil
+        setupAddTaskButton(); // Configurar botón para agregar tareas
+        setupLogoutButton(); // Configurar botón de cierre de sesión
+    }
 
-        // Inicialización y declaración de variables
-        Random random = new Random();
-        TextView pokename = findViewById(R.id.pokename);
-        TextView level = findViewById(R.id.level);
-        ImageView pokeSprite = findViewById(R.id.PokeSprite);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-        Button pokemonChange = findViewById(R.id.pokemonChange);
-        TextView experience = findViewById(R.id.exp);
-        Button perfil = findViewById(R.id.perfil);
-        Button login = findViewById(R.id.login);
-        Button agregar = findViewById(R.id.agregar);
-        int min = 1;
-        int max = 1010;
-        User1 = JsonHandler.loadJsonData(this);
-
-        // Inicializa Firestore
-        firestore = FirebaseFirestore.getInstance();
-
-        if (User1 == null) {
-            // Redirigir al usuario a RegisterActivity
-            Intent intent = new Intent(TaskActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            finish(); // Finalizar TaskActivity para que el usuario no pueda volver a ella con el botón de retroceso
-            return; // Salir del método onCreate para evitar ejecutar el resto del código
-        }
-
-        // Verifico si hay tareas en User1
-        ArrayList<String> tareas = User1.getTarea();
-        if (tareas != null && !tareas.isEmpty()) {
-            LinearLayout linearLayout = findViewById(R.id.linearLay);
-
-            // Genero dinámicamente los CheckBox para las tareas existentes
-            for (String tarea : tareas) {
-                CheckBox checkBox = new CheckBox(TaskActivity.this);
-                checkBox.setText(tarea);
-
-                // Agrego el CheckBox al LinearLayout
-                linearLayout.addView(checkBox);
-
-                // Agrego el CheckBox a la lista
-                checkBoxList.add(checkBox);
-
-                // Agrego un listener al CheckBox para detectar el cambio de estado
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            // Obtengo el texto del CheckBox marcado
-                            String textoCheckBox = ((CheckBox) buttonView).getText().toString();
-                            TextView experience = findViewById(R.id.exp);
-                            ProgressBar progressBar = findViewById(R.id.progressBar);
-
-                            // Cargo la experiencia
-                            User1.setExp(User1.getExp() + 10);
-
-                            // Actualizo el texto de experiencia
-                            experience.setText(User1.getExp() + " / 100 exp");
-                            progressBar.setProgress(User1.getExp());
-
-                            // Elimino la tarea de mi User
-                            User1.getTarea().remove(textoCheckBox);
-                            JsonHandler.saveJsonData(TaskActivity.this, User1); // Guardar localmente
-
-                            // Actualizar Firestore
-                            updateUserProfileInFirestore(User1);
-
-                            // Elimino el CheckBox del LinearLayout y de la lista
-                            linearLayout.removeView(buttonView);
-                            checkBoxList.remove(buttonView);
-
-                            // Verificar si el usuario sube de nivel
-                            if (User1.getExp() >= 100) {
-                                User1.setExp(0); // Restablecer la experiencia
-                                User1.setLvl(User1.getLvl() + 1); // Aumentar el nivel
-                                int pokemonAleatorio = random.nextInt(max - min + 1) + min; // Generar un nuevo Pokémon
-                                User1.setLastPokemon(pokemonAleatorio); // Cambiar el último Pokémon
-                                User1.addPokemon(String.valueOf(pokemonAleatorio)); // Agregar el nuevo Pokémon a la lista
-
-                                // Actualizar Firestore
-                                updateUserProfileInFirestore(User1);
-
-                                // Actualizar la interfaz de usuario
-                                String relativeUrl1 = "pokemon/" + pokemonAleatorio + "/";
-                                new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1);
-                                Toast.makeText(TaskActivity.this, "¡Felicidades has subido de nivel! ¡Haz descubierto un nuevo Pokémon!", Toast.LENGTH_SHORT).show();
-                                level.setText("Nivel: " + User1.getLvl());
-                                experience.setText(User1.getExp() + " / 100 exp");
-                                progressBar.setProgress(User1.getExp());
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-
-
-        // Llamada para generar el archivo JSON con datos dummy
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                experience.setText(User1.getExp() + " / 100 exp");
-            }
-        });
+    // Inicializar las vistas
+    private void initializeViews() {
+        pokename = findViewById(R.id.pokename);
+        level = findViewById(R.id.level);
+        pokeSprite = findViewById(R.id.PokeSprite);
+        progressBar = findViewById(R.id.progressBar);
+        pokemonChange = findViewById(R.id.pokemonChange);
+        experience = findViewById(R.id.exp);
+        perfil = findViewById(R.id.perfil);
+        login = findViewById(R.id.login);
+        agregar = findViewById(R.id.agregar);
 
         progressBar.setIndeterminate(false);
         progressBar.setMax(100);
-        progressBar.setProgress(User1.getExp());
-        ColorStateList colorStateList = ColorStateList.valueOf(Color.YELLOW);
-        progressBar.setProgressTintList(colorStateList);
+        progressBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
         agregar.setBackgroundColor(ContextCompat.getColor(this, R.color.ThemeColor));
-        int numeroPokemon = User1.getLastPokemon();
-        String relativeUrl = "pokemon/" + numeroPokemon + "/";
-        new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
-        level.append(String.valueOf(User1.getLvl()));
-
-        // Método para cambiar a Pokémon aleatorio
-        pokemonChange.setOnClickListener(view -> {
-            final int pokemonAleatorio = random.nextInt(max - min + 1) + min;
-            User1.setLastPokemon(pokemonAleatorio);
-            User1.addPokemon(String.valueOf(pokemonAleatorio)); // Agregar el Pokémon a la lista
-            JsonHandler.saveJsonData(TaskActivity.this, User1); // Guardar localmente
-
-            // Actualizar el perfil en Firestore
-            updateUserProfileInFirestore(User1);
-
-            String relativeUrl1 = "pokemon/" + pokemonAleatorio + "/";
-            new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl1);
-            Toast.makeText(this, "Cambio de Pokémon: " + pokemonAleatorio, Toast.LENGTH_SHORT).show();
-        });
-
-        // Método para irse al perfil
-        perfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Crear un nuevo intent
-                Intent intent = new Intent(TaskActivity.this, ProfileActivity.class);
-
-                // Iniciar la segunda actividad
-                startActivity(intent);
-                Log.d("Perfil", "El pokemon es: " + User1.getLastPokemon() + ".");
-            }
-        });
-
-        // Método para agregar y que se eliminen los checkbox agregados
-        agregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout linearLayout = findViewById(R.id.linearLay);
-
-                // Crear un cuadro de diálogo para ingresar la tarea
-                AlertDialog.Builder builder = new AlertDialog.Builder(TaskActivity.this);
-                builder.setTitle("Agregue la Tarea");
-
-                // Agregar un campo de texto para la tarea
-                final EditText input = new EditText(TaskActivity.this);
-                input.setTextColor(Color.BLACK); // Establece el color del texto en negro
-                builder.setView(input);
-
-                // Agregar botones "Cancelar" y "Aceptar"
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Obtener el texto ingresado por el usuario
-                        String tarea = input.getText().toString();
-
-                        // Crear un nuevo CheckBox con el texto de la tarea
-                        CheckBox checkBox = new CheckBox(TaskActivity.this);
-                        checkBox.setText(tarea);
-
-                        if (tarea.isEmpty()) {
-                            // Mostrar un Toast indicando que no se puede agregar una tarea vacía
-                            Toast.makeText(TaskActivity.this, "No se puede agregar una tarea vacía. Por favor, inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            User1.addTarea(tarea); // Agregar la tarea a la lista
-                            JsonHandler.saveJsonData(TaskActivity.this, User1); // Guardar localmente
-
-                            // Actualizar Firestore
-                            updateUserProfileInFirestore(User1);
-
-                            // Agregar el CheckBox al LinearLayout
-                            linearLayout.addView(checkBox);
-
-                            // Aplica el estilo personalizado al CheckBox
-                            checkBox.setButtonTintList(ColorStateList.valueOf(Color.BLACK));
-
-                            // Agregar el CheckBox a la lista
-                            checkBoxList.add(checkBox);
-                        }
-                    }
-                });
-
-                // Mostrar el cuadro de diálogo
-                builder.show();
-            }
-        });
-
-        // Botón para cerrar sesión
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    // Cerrar la sesión de Firebase
-                    FirebaseAuth.getInstance().signOut();
-
-                    // Crear un nuevo intent para volver al login
-                    Intent intent = new Intent(TaskActivity.this, LoginActivity.class);
-
-                    // Limpiar la pila de actividades para evitar que el usuario vuelva atrás con el botón "atrás"
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                    // Iniciar la actividad de inicio de sesión
-                    startActivity(intent);
-                    finish(); // Finaliza TaskActivity para evitar que quede en segundo plano
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(TaskActivity.this, "Error al cerrar sesión. Inténtelo nuevamente.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
-    private void updateUserProfileInFirestore(UserData user1) {
+    // Inicializar Firestore
+    private void initializeFirestore() {
+        firestore = FirebaseFirestore.getInstance();
+    }
+
+    // Cargar datos del usuario desde Firestore
+    private void loadUserData() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            // Si no hay usuario autenticado, no se puede actualizar Firestore
+            redirectToRegisterActivity(); // Redirigir si no hay usuario autenticado
+            return;
+        }
+
+        String userEmail = currentUser.getEmail();
+        if (userEmail == null) {
+            Log.e("Firestore", "No se pudo obtener el correo electrónico del usuario");
+            return;
+        }
+        firestore.collection("users")
+                .whereEqualTo("email", userEmail)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (!task.getResult().isEmpty()) {
+                            DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                            User1 = document.toObject(UserData.class); // Convertir documento a UserData
+                            if (User1 != null) {
+                                // Actualizar la UI con los datos del usuario
+                                level.setText("Nivel: " + User1.getLevel());
+                                loadTasks(); // Cargar tareas del usuario
+                                updateUI(); // Actualizar la interfaz de usuario
+                                loadPokemonSprite(User1.getLastPokemon()); // Cargar sprite del Pokémon
+                            } else {
+                                Log.e("Firestore", "El documento del usuario es nulo");
+                            }
+                        } else {
+                            Log.e("Firestore", "No se encontró ningún documento para el usuario");
+                        }
+                    } else {
+                        Log.e("Firestore", "Error al obtener los datos del usuario", task.getException());
+                    }
+                });
+    }
+
+    // Redirigir a la actividad de registro
+    private void redirectToRegisterActivity() {
+        Intent intent = new Intent(TaskActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // Cargar tareas del usuario desde Firestore
+    private void loadTasks() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
             Log.e("Firestore", "No hay usuario autenticado");
             return;
         }
 
-        String userEmail = currentUser.getEmail(); // Obtener el correo electrónico del usuario actual
-
+        String userEmail = currentUser.getEmail();
         if (userEmail == null) {
-            // Si no hay correo electrónico, no se puede buscar el documento
             Log.e("Firestore", "No se pudo obtener el correo electrónico del usuario");
             return;
         }
 
-        // Buscar el documento en Firestore que tenga el mismo correo electrónico
+        // Obtener las tareas desde Firestore
         firestore.collection("users")
-                .whereEqualTo("email", userEmail) // Buscar por correo electrónico
+                .whereEqualTo("email", userEmail)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        // Obtener el primer documento que coincida (debería ser único)
                         DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                        List<String> tareas = (List<String>) document.get("tareas");
 
-                        // Crear un mapa con los datos que quieres actualizar
+                        if (tareas != null && !tareas.isEmpty()) {
+                            LinearLayout linearLayout = findViewById(R.id.linearLay);
+                            for (String tarea : tareas) {
+                                createCheckBoxForTask(tarea, linearLayout); // Crear CheckBox para cada tarea
+                            }
+                        } else {
+                            Log.d("Firestore", "No hay tareas para este usuario");
+                        }
+                    } else {
+                        Log.e("Firestore", "Error al obtener las tareas", task.getException());
+                    }
+                });
+    }
+
+    // Crear un CheckBox para una tarea y agregarlo al layout
+    private void createCheckBoxForTask(String tarea, LinearLayout linearLayout) {
+        CheckBox checkBox = new CheckBox(TaskActivity.this);
+        checkBox.setText(tarea);
+        linearLayout.addView(checkBox);
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                handleTaskCompletion(buttonView, linearLayout); // Manejar la completitud de la tarea
+            }
+        });
+    }
+
+    // Manejar la completitud de una tarea
+    private void handleTaskCompletion(CompoundButton buttonView, LinearLayout linearLayout) {
+        String textoCheckBox = ((CheckBox) buttonView).getText().toString();
+        User1.setExperience(User1.getExperience() + 10); // Sumar experiencia ganada
+        updateUI(); // Actualizar la UI
+        User1.removeTarea(textoCheckBox); // Eliminar tarea completada
+
+        // Actualizar Firestore
+        updateUserProfileInFirestore(User1);
+
+        linearLayout.removeView(buttonView); // Eliminar CheckBox del layout
+    }
+
+    // Actualizar la interfaz de usuario
+    private void updateUI() {
+        experience.setText(User1.getExperience() + " / 100 exp");
+        progressBar.setProgress(User1.getExperience());
+        if (User1.getExperience() >= 100) {
+            handleLevelUp(); // Manejar subida de nivel
+        }
+    }
+
+    // Manejar la subida de nivel
+    private void handleLevelUp() {
+        User1.setExperience(0);
+        User1.setLevel(User1.getLevel() + 1);
+        Log.d("TaskActivity", "Nuevo nivel: " + User1.getLevel());
+
+        int pokemonAleatorio = new Random().nextInt(1010) + 1; // Generar un Pokémon aleatorio
+        User1.setLastPokemon(pokemonAleatorio);
+        User1.addPokemon(String.valueOf(pokemonAleatorio));
+
+        level.setText("Nivel: " + User1.getLevel());
+        experience.setText(User1.getExperience() + " / 100 exp");
+        progressBar.setProgress(User1.getExperience());
+
+        Toast.makeText(TaskActivity.this, "¡Felicidades has subido de nivel! ¡Haz descubierto un nuevo Pokémon!", Toast.LENGTH_SHORT).show();
+        loadPokemonSprite(pokemonAleatorio); // Cargar el sprite del nuevo Pokémon
+    }
+
+    // Configurar el botón de cambio de Pokémon
+    private void setupPokemonChangeButton() {
+        pokemonChange.setOnClickListener(view -> {
+            int pokemonAleatorio = new Random().nextInt(1010) + 1; // Generar un Pokémon aleatorio
+            User1.setLastPokemon(pokemonAleatorio);
+            User1.addPokemon(String.valueOf(pokemonAleatorio));
+
+            // Actualizar Firestore
+            updateUserProfileInFirestore(User1);
+
+            loadPokemonSprite(pokemonAleatorio); // Cargar el sprite del nuevo Pokémon
+            Toast.makeText(this, "Cambio de Pokémon: " + pokemonAleatorio, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    // Configurar el botón de perfil
+    private void setupProfileButton() {
+        perfil.setOnClickListener(v -> {
+            Intent intent = new Intent(TaskActivity.this, ProfileActivity.class);
+            startActivity(intent);
+            Log.d("Perfil", "El pokemon es: " + User1.getLastPokemon() + ".");
+        });
+    }
+
+    // Configurar el botón para agregar tareas
+    private void setupAddTaskButton() {
+        agregar.setOnClickListener(v -> {
+            LinearLayout linearLayout = findViewById(R.id.linearLay);
+            showAddTaskDialog(linearLayout); // Mostrar diálogo para agregar tarea
+        });
+    }
+
+    // Mostrar diálogo para agregar una tarea
+    private void showAddTaskDialog(LinearLayout linearLayout) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(TaskActivity.this);
+        builder.setTitle("Agregue la Tarea");
+
+        final EditText input = new EditText(TaskActivity.this);
+        input.setTextColor(Color.BLACK);
+        builder.setView(input);
+
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+        builder.setPositiveButton("Aceptar", (dialog, which) -> {
+            String tarea = input.getText().toString();
+            if (tarea.isEmpty()) {
+                Toast.makeText(TaskActivity.this, "No se puede agregar una tarea vacía. Por favor, inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+            } else {
+                User1.addTarea(tarea); // Agregar tarea al usuario
+
+                // Actualizar Firestore
+                updateUserProfileInFirestore(User1);
+
+                createCheckBoxForTask(tarea, linearLayout); // Crear CheckBox para la nueva tarea
+            }
+        });
+
+        builder.show();
+    }
+
+    // Configurar el botón de cierre de sesión
+    private void setupLogoutButton() {
+        login.setOnClickListener(v -> {
+            try {
+                FirebaseAuth.getInstance().signOut(); // Cerrar sesión
+                Intent intent = new Intent(TaskActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(TaskActivity.this, "Error al cerrar sesión. Inténtelo nuevamente.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Actualizar el perfil del usuario en Firestore
+    private void updateUserProfileInFirestore(UserData user) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            Log.e("Firestore", "No hay usuario autenticado");
+            return;
+        }
+
+        String userEmail = currentUser.getEmail();
+        if (userEmail == null) {
+            Log.e("Firestore", "No se pudo obtener el correo electrónico del usuario");
+            return;
+        }
+
+        firestore.collection("users")
+                .whereEqualTo("email", userEmail)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
                         Map<String, Object> updates = new HashMap<>();
-                        updates.put("level", user1.getLvl());
-                        updates.put("experience", user1.getExp());
-                        updates.put("lastPokemon", user1.getLastPokemon());
-                        updates.put("pokedex", user1.getPokedex()); // Enviar la lista completa de Pokémon
-                        updates.put("tareas", user1.getTarea()); // Enviar la lista completa de tareas
+                        updates.put("level", user.getLevel());
+                        updates.put("experience", user.getExperience());
+                        updates.put("lastPokemon", user.getLastPokemon());
+                        updates.put("pokedex", user.getPokedex());
+                        updates.put("tareas", user.getTareas());
 
-                        // Actualizar el documento encontrado
                         document.getReference()
-                                .update(updates) // Actualizar solo los campos especificados
+                                .update(updates)
                                 .addOnSuccessListener(aVoid -> {
-                                    // La actualización fue exitosa
                                     Log.d("Firestore", "Perfil de usuario actualizado correctamente");
-                                    Log.d("Firestore", "Pokedex actualizada: " + user1.getPokedex());
-                                    Log.d("Firestore", "Tareas actualizadas: " + user1.getTarea());
                                 })
                                 .addOnFailureListener(e -> {
-                                    // Hubo un error al actualizar el perfil
                                     Log.e("Firestore", "Error al actualizar el perfil de usuario", e);
                                 });
                     } else {
-                        // No se encontró el documento o hubo un error
                         Log.e("Firestore", "No se encontró el documento del usuario o hubo un error", task.getException());
                     }
                 });
@@ -326,12 +331,18 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        JsonHandler.saveJsonData(this, User1); // Guardar datos locales al pausar la actividad
+        updateUserProfileInFirestore(User1); // Actualizar Firestore al pausar la actividad
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        JsonHandler.saveJsonData(this, User1); // Guardar datos locales al destruir la actividad
+        updateUserProfileInFirestore(User1); // Actualizar Firestore al destruir la actividad
+    }
+
+    // Cargar el sprite del Pokémon desde la API
+    private void loadPokemonSprite(int pokemonId) {
+        String relativeUrl = "pokemon/" + pokemonId + "/";
+        new GetPokemonInfo(pokename, pokeSprite).execute(relativeUrl);
     }
 }

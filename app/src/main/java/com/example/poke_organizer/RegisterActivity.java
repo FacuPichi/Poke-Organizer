@@ -1,5 +1,6 @@
 package com.example.poke_organizer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,12 +39,15 @@ public class RegisterActivity extends AppCompatActivity {
         EditText email = findViewById(R.id.editTextEmail);
         EditText password = findViewById(R.id.editPassword2);  // Campo de contraseña
         Button register = findViewById(R.id.register);
+        Button returnLogin = findViewById(R.id.returnLogin);
         int min = 1;
         int max = 1010;
         Random random = new Random();
 
         register.setBackgroundColor(ContextCompat.getColor(this, R.color.ThemeColorDark));
+        returnLogin.setBackgroundColor(ContextCompat.getColor(this, R.color.ThemeColorDark));
 
+        returnLogin.setOnClickListener(view -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
         final int pokemonAleatorio = random.nextInt(1010 - 1 + 1) + 1;
         user.setLastPokemon(pokemonAleatorio);
         user.addPokemon(String.valueOf(pokemonAleatorio));
-        user.setLvl(1);
+        user.setLevel(1);
 
         // Guardamos los datos en Firestore bajo la colección "users"
         db.collection("users")

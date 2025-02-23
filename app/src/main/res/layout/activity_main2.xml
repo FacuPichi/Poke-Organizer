@@ -39,18 +39,7 @@
         app:layout_constraintTop_toTopOf="@+id/profileProgressBar"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ProgressBar
-        android:id="@+id/profileProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/progressBarWidth"
-        android:layout_height="@dimen/progressBarHeight"
-        android:layout_marginEnd="16dp"
-        android:alpha="0.8"
-        android:progressDrawable="@drawable/custom_progress_bar"
-        app:layout_constraintBottom_toBottomOf="@+id/divideBar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title2"
-        app:layout_constraintVertical_bias="0.958" />
+
 
     <TextView
         android:id="@+id/pokename2"
@@ -204,6 +193,20 @@
         app:layout_constraintTop_toBottomOf="@+id/pokeBackground2"
         app:srcCompat="@drawable/dividebar"
         tools:ignore="ImageContrastCheck" />
+
+    <ProgressBar
+        android:id="@+id/profileProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="@dimen/progressBarWidth"
+        android:layout_height="@dimen/progressBarHeight"
+        android:layout_marginEnd="16dp"
+        android:alpha="0.8"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/divideBar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nivelUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/title2"
+        app:layout_constraintVertical_bias="0.958" />
 
     <TextView
         android:id="@+id/nivelUsuario"

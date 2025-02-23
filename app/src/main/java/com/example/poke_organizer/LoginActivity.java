@@ -122,13 +122,12 @@ public class LoginActivity extends AppCompatActivity {
                             ArrayList<String> tareas = document.contains("tasks") ? (ArrayList<String>) document.get("tasks") : new ArrayList<>();
 
                             UserData userData = new UserData(nombre != null ? nombre : "Desconocido", password.getText().toString(), email);
-                            userData.setLvl(lvl);
-                            userData.setExp(exp);
+                            userData.setLevel(lvl);
+                            userData.setExperience(exp);
                             userData.setLastPokemon(lastPokemon);
                             userData.setPokedex(pokedex);
-                            userData.setTarea(tareas);
+                            userData.setTareas(tareas);
 
-                            JsonHandler.saveJsonData(LoginActivity.this, userData);
                             redirectToTaskActivity();
                         } else {
                             showToast("No se encontraron datos del usuario en Firestore");
